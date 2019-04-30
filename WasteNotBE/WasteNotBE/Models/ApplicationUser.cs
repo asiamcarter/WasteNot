@@ -10,10 +10,7 @@ namespace WasteNotBE.Models
     public class ApplicationUser: IdentityUser
     {  
 
-        [Required]
-        [EmailAddress]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
+        
 
         [Required]
         [Display(Name = "First Name")]
@@ -22,14 +19,6 @@ namespace WasteNotBE.Models
         [Required]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
-
-        [Required]
-        [Display(Name = "Username")]
-        public string Username { get; set; }
-
-        [Required]
-        [Display(Name = "Password")]
-        public string Password { get; set; }
 
         [Display(Name = "Story")]
         public string Story { get; set; }
