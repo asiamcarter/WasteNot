@@ -9,7 +9,6 @@ namespace WasteNotBE.Models
 {
     public class ApplicationUser: IdentityUser
     {  
-        public int Id { get; set; }
 
         [Required]
         [EmailAddress]
