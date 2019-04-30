@@ -37,6 +37,6 @@ namespace WasteNotBE.Models
         [Display(Name = "Photo")]
         public string PhotoURL { get; set; }
 
-        public string isAdmin { get; set; }
+        public bool isAdmin { get; set; }
     }
 }
