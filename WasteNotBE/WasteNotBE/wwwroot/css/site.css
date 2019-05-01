@@ -92,8 +92,11 @@ div.homepage-item img {
     width: 170px;
     height: 63px; 
 }
-
+/*Item Details*/
 
+.item-detail-div {
+    display: inline-flex;
+}
 
 
 

@@ -5,9 +5,19 @@
 }
 
 <div class="item-detail-div">
-    <img src="@Html.DisplayFor(model => model.PhotoUrl)"/>
+    <div class="item-detail-img-div">
+        <img src="@Html.DisplayFor(model => model.PhotoUrl)" />
+    </div>
     <div class="item-detail-info-div">
-        <p>@Html.DisplayFor(model => model.Title)</p>
+        <div class="item-detail-user-div">
+            <img src="@Html.DisplayFor(model=>model.User.PhotoURL)"/ class="item-detail-user-img><p>@Html.DisplayFor(model=>model.User.UserName)</p>
+        </div>
+        <div class="item-detail-item-info-div">
+            <h4>@Html.DisplayFor(model => model.Title)</h4><br />
+            <h4>@Html.DisplayNameFor(model => model.Category):</h4><p>@Html.DisplayFor(model => model.Category.Title)</p><br />
+            <h4>@Html.DisplayNameFor(model => model.Description):</h4><p>@Html.DisplayFor(model => model.Description)</p><br />
+            <a href="Html.DisplayFor(model => model.SourceLink)"/>
+        </div>
     </div>
 </div>
 @*<div>
