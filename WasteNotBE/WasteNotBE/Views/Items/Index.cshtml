@@ -1,80 +1,20 @@
-﻿@model IEnumerable<WasteNotBE.Models.Item>
+﻿//View for search results
+@model IEnumerable<WasteNotBE.Models.Item>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-
-
-<h1 id="test2">Index</h1>
-
-<p id="test">
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SourceLink)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PhotoUrl)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ReplacementTag)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.User)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateCreated)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
+<h1>Search Results</h1>
+<table>
+    <div class="homepage-div">
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Category.Id)
-                </td>
-                <td>
-                    <a href="@Html.DisplayFor(modelItem => item.SourceLink)" />
-                </td>
-                <td>
-                    <img width="50" src=" @Html.DisplayFor(modelItem => item.PhotoUrl)" />
-                </td>
-                @*<td>
-                        @Html.DisplayFor(modelItem => item.ReplacementTag)
-                    </td>*@
-                <td>
-                    @Html.DisplayFor(modelItem => item.User.UserName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateCreated)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
+            <div class="homepage-item">
+                <img src="@Html.DisplayFor(modelItem => item.PhotoUrl)" />
+                <p>@Html.DisplayFor(modelItem => item.Title)</p>         
+            </div>
         }
-    </tbody>
+        </div>
+
 </table>

@@ -67,9 +67,7 @@ body {
 }
 
 .homepage-item  {
-    /*background: #fefefe;*/
-    border: 2px solid #fcfcfc;
-    /*box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);*/
+    /*border: 2px solid #fcfcfc;*/
     margin: 0 2px 15px;
     padding: 15px;
     padding-bottom: 10px;
@@ -81,10 +79,18 @@ body {
 div.homepage-item img {
     width: 100%;
     height: auto;
-    border-bottom: 1px solid #ccc;
     padding-bottom: 15px;
     margin-bottom: 5px;
     border-radius: 25px;
+}
+
+#waste-not-logo {
+    margin-right: 10px;
+}
+
+#homepage-search-bar {
+    width: 170px;
+    height: 63px; 
 }
 
 
