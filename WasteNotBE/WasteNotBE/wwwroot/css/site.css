@@ -54,3 +54,51 @@ body {
   height: 60px;
   line-height: 60px; /* Vertically center the text there */
 }
+
+/* Homepage Styling
+    ----------------------------------------------------*/
+
+.homepage-div {
+    column-width: 320px;
+    column-gap: 15px;
+    width: 90%;
+    max-width: 1100px;
+    margin: 50px auto;
+}
+
+.homepage-item  {
+    /*border: 2px solid #fcfcfc;*/
+    margin: 0 2px 15px;
+    padding: 15px;
+    padding-bottom: 10px;
+    transition: opacity .4s ease-in-out;
+    display: inline-block;
+    border-radius: 25px;
+}
+
+div.homepage-item img {
+    width: 100%;
+    height: auto;
+    padding-bottom: 15px;
+    margin-bottom: 5px;
+    border-radius: 25px;
+}
+
+#waste-not-logo {
+    margin-right: 10px;
+}
+
+#homepage-search-bar {
+    width: 170px;
+    height: 63px; 
+}
+
+
+
+
+
+
+
+
+
+

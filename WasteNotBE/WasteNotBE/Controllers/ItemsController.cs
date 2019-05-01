@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -12,18 +13,44 @@ namespace WasteNotBE.Controllers
 {
     public class ItemsController : Controller
     {
+        private readonly UserManager<ApplicationUser> _userManager;
+
         private readonly ApplicationDbContext _context;
 
-        public ItemsController(ApplicationDbContext context)
+        public ItemsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
+            _userManager = userManager;
             _context = context;
         }
 
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
+
         // GET: Items
-        public async Task<IActionResult> Index()
+        //Method takes in search query as a string, if nothing is typed into the search bar, a list of the first 20 products is returned. If a search query is entered into the search bar, the string is matched against the catalog of items based on their replacement tags and titles. Items that have matches are returned.
+        public async Task<IActionResult> Index(string SearchString)
         {
-            var applicationDbContext = _context.Items.Include(i => i.Category).Include(i => i.User);
-            return View(await applicationDbContext.ToListAsync());
+            if (string.IsNullOrEmpty(SearchString))
+            {
+
+                var items = await _context.Items
+                    .Include(i => i.Category)
+                    .Include(i => i.User)
+                    .OrderByDescending(p => p.DateCreated)
+                    .Take(20)
+                    .ToListAsync();
+
+                return View(items);
+            } else
+            {
+                var items = await _context.Items
+                   .Include(i => i.Category)
+                   .Include(i => i.User)
+                   .OrderByDescending(p => p.DateCreated)
+                   .Where(i => i.ReplacementTag.Contains(SearchString) | i.Title.Contains(SearchString))
+                   .ToListAsync();
+                return View(items);
+            }
+       
         }
 
         // GET: Items/Details/5

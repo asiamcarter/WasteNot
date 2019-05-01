@@ -1,8 +1,21 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model WasteNotBE.Models.HomeViewModels.HomeIndexViewModel
+
+@{
+    ViewData["Title"] = "Index";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<table class="table">
+    <div class="homepage-div">
+        @foreach (var item in Model.ItemList)
+        {
+        <div class="homepage-item">
+            <img src="@Html.DisplayFor(modelItem => item.PhotoUrl)" />
+            <p>@Html.DisplayFor(modelItem => item.Title)</p>
+            @*<p>@Html.DisplayFor(modelItem => item.User.FirstName)</p>*@
+        </div>
+           
+        }
+         </div>
+
+</table>
+
