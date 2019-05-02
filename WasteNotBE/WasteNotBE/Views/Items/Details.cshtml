@@ -4,63 +4,26 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<div class="item-detail-div">
+    <div class="item-detail-img-div">
+        <img src="@Html.DisplayFor(model => model.PhotoUrl)" class="item-detail-img" />
+     
+    </div>
+    <div class="item-detail-info-div">
+        <div class="item-detail-user-div">
+        <img class="item-detail-user-img" src="https://lh3.googleusercontent.com/vv7UOi1e6cfRfpH3h263xh34pN-mlbER0SdlGSstHRrDsMy7UR91hWPDzYuB9SPwQxHRtg=s85" />
+        <p>@Html.DisplayFor(model => model.User.UserName)</p>
+            </div>
 
-<div>
-    <h4>Item</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Category)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Category.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SourceLink)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SourceLink)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PhotoUrl)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PhotoUrl)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ReplacementTag)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ReplacementTag)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.User)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.User.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DateCreated)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DateCreated)
-        </dd>
-    </dl>
+        <div class="item-detail-item-info-div">
+            <h4>@Html.DisplayFor(model => model.Title)</h4><br />
+            <h4>@Html.DisplayNameFor(model => model.Category):</h4><p>@Html.DisplayFor(model => model.Category.Title)</p><br />
+            <h4>@Html.DisplayNameFor(model => model.Description):</h4><p>@Html.DisplayFor(model => model.Description)</p><br />
+            <a href="Html.DisplayFor(model => model.SourceLink)"> Source Link </a><br />
+            <a asp-area="" asp-controller="WishListItem" asp-action="Create" asp-route-id="@Model.Id" class="btn-success">Add to List</a>
+
+
+        </div>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+

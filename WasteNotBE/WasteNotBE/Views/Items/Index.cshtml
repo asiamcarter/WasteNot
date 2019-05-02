@@ -10,10 +10,12 @@
     <div class="homepage-div">
         @foreach (var item in Model)
         {
-            <div class="homepage-item">
+        <div class="homepage-item">
+            <a asp-controller="Items" asp-action="Details" asp-route-id="@item.Id">
                 <img src="@Html.DisplayFor(modelItem => item.PhotoUrl)" />
-                <p>@Html.DisplayFor(modelItem => item.Title)</p>         
-            </div>
+            </a>
+                <p>@Html.DisplayFor(modelItem => item.Title)</p>
+        </div>
         }
         </div>
 
