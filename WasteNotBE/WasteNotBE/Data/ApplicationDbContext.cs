@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using WasteNotBE.Models;
+using WasteNotBE.Models.ProfileViewModels;
 
 namespace WasteNotBE.Data
 {
@@ -383,5 +384,7 @@ namespace WasteNotBE.Data
                          }
             );
         }
+
+        public DbSet<WasteNotBE.Models.ProfileViewModels.ProfileIndexViewModel> ProfileIndexViewModel { get; set; }
     }
 }
