@@ -98,6 +98,29 @@ div.homepage-item img {
     display: inline-flex;
 }
 
+.item-detail-img{
+    max-width: 100%;
+    height: auto;
+    margin-right: 20px;
+}
+
+.item-detail-img-div {
+    width: 1200px;
+    height: 913px;
+    margin-right: 20px;
+}
+
+.item-detail-info-div{
+    display: flex;
+    flex-direction: column;
+}
+
+.item-detail-user-div{
+    display: inline-flex;
+}
+.item-detail-user-img {
+    border-radius: 25%;
+}
 
 
 
