@@ -11,18 +11,19 @@
     </div>
     <div class="item-detail-info-div">
         <div class="item-detail-user-div">
-            <img class="item-detail-user-img"src="https://lh3.googleusercontent.com/vv7UOi1e6cfRfpH3h263xh34pN-mlbER0SdlGSstHRrDsMy7UR91hWPDzYuB9SPwQxHRtg=s85" />
-            <p>@Html.DisplayFor(model => model.User.UserName)</p>
-        </div>
+        <img class="item-detail-user-img" src="https://lh3.googleusercontent.com/vv7UOi1e6cfRfpH3h263xh34pN-mlbER0SdlGSstHRrDsMy7UR91hWPDzYuB9SPwQxHRtg=s85" />
+        <p>@Html.DisplayFor(model => model.User.UserName)</p>
+            </div>
+
         <div class="item-detail-item-info-div">
             <h4>@Html.DisplayFor(model => model.Title)</h4><br />
             <h4>@Html.DisplayNameFor(model => model.Category):</h4><p>@Html.DisplayFor(model => model.Category.Title)</p><br />
             <h4>@Html.DisplayNameFor(model => model.Description):</h4><p>@Html.DisplayFor(model => model.Description)</p><br />
-            <a href="Html.DisplayFor(model => model.SourceLink)"/> Source Link </a>
+            <a href="Html.DisplayFor(model => model.SourceLink)"> Source Link </a><br />
+            <a asp-area="" asp-controller="WishListItem" asp-action="Create" asp-route-id="@Model.Id" class="btn-success">Add to List</a>
+
+
         </div>
     </div>
 </div>
-@*<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>*@
+

@@ -96,6 +96,7 @@ div.homepage-item img {
 
 .item-detail-div {
     display: inline-flex;
+    margin-top: 30px;
 }
 
 .item-detail-img{
@@ -119,8 +120,14 @@ div.homepage-item img {
     display: inline-flex;
 }
 .item-detail-user-img {
-    border-radius: 25%;
+    max-width: 50px;
+    height: auto;
+    border-radius: 50%;
 }
+
+/*User Profile View*/
+
+
 
 
 
