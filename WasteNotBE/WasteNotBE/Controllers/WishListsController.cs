@@ -31,21 +31,33 @@ namespace WasteNotBE.Controllers
         {
             var user = await GetCurrentUserAsync();
 
-            var applicationDbContext = _context.WishLists.Include(w => w.User).Include(w => w.WishListItem.Item).Include(w => w.WishListItem).Where(w => w.UserId == user.Id);
+            var applicationDbContext = _context.WishLists.Include(w => w.User).Include(w => w.WishListItems).Where(w => w.UserId == user.Id);
             return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: WishLists/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            var user = await GetCurrentUserAsync();
+
             if (id == null)
+
             {
                 return NotFound();
             }
 
             var wishList = await _context.WishLists
                 .Include(w => w.User)
+                .Include(w => w.WishListItems)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
+            var Items = await _context.WishListItems
+                .Include(w => w.Item)
+                .Where(w => w.ItemId == w.Item.Id && w.WishListId == wishList.Id)
+                .ToListAsync();
+
+            wishList.WishListItems = Items;
+
             if (wishList == null)
             {
                 return NotFound();
@@ -53,6 +65,8 @@ namespace WasteNotBE.Controllers
 
             return View(wishList);
         }
+
+
 
         // GET: WishLists/Create
         public IActionResult Create()

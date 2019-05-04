@@ -6,26 +6,36 @@
 }
 
 <h1>Details</h1>
-
 <div>
     <h4>WishList</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.User)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.User.Id)
         </dd>
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Title)
         </dt>
-        <dd class = "col-sm-10">
+
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Title)
         </dd>
+
+        @foreach (var item in Model.WishListItems)
+
+        {
+            <p>@Html.DisplayFor(modelItem => item.Item.Title)</p>
+        }
+
     </dl>
 </div>
+<a asp-controller="Items" asp-action="CreateNewItem" asp-route-id="@Model.Id" class="btn-success">Create New Item</a>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+

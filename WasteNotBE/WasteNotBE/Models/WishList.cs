@@ -11,6 +11,6 @@ namespace WasteNotBE.Models
         public string UserId { get; set; }
         public ApplicationUser User { get; set; }
         public string Title { get; set; }
-        public WishListItem WishListItem { get; set; }
+        public virtual ICollection<WishListItem> WishListItems { get; set; }
     }
 }
