@@ -74,10 +74,26 @@ namespace WasteNotBE.Controllers
         }
 
         // GET: Items/Create
-        public IActionResult Create()
+        public async Task<IActionResult> CreateNewItem([Bind("Id,Title,Description,CategoryId,SourceLink,PhotoUrl,ReplacementTag,UserId,DateCreated")][FromRoute]int id )
         {
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id");
-            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id");
+            // Find the wishlist requested
+            WishList WishListToAdd = await _context.WishLists.SingleOrDefaultAsync(wl => wl.Id == id);
+
+            var user = await GetCurrentUserAsync();
+
+            // Create new item
+            var item = new Item();
+            item.UserId = user.Id;
+            _context.Add(item);
+
+            // Add Item to WishListItems
+            var WishListItem = new WishListItem();
+            //could also = passed in id
+            WishListItem.WishListId = WishListToAdd.Id;
+            WishListItem.ItemId = item.Id;
+            _context.Add(WishListItem);
+            await _context.SaveChangesAsync();
+
             return View();
         }
 
