@@ -17,7 +17,7 @@
 
         <div class="item-detail-item-info-div">
             <h4>@Html.DisplayFor(model => model.Title)</h4><br />
-            <h4>@Html.DisplayNameFor(model => model.Category):</h4><p>@Html.DisplayFor(model => model.Category.Title)</p><br />
+            @*<h4>@Html.DisplayNameFor(model => model.Category):</h4><p>@Html.DisplayFor(model => model.Category.Title)</p><br />*@
             <h4>@Html.DisplayNameFor(model => model.Description):</h4><p>@Html.DisplayFor(model => model.Description)</p><br />
             <a href="Html.DisplayFor(model => model.SourceLink)"> Source Link </a><br />
             <a asp-area="" asp-controller="WishListItem" asp-action="Create" asp-route-id="@Model.Id" class="btn-success">Add to List</a>

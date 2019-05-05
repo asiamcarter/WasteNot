@@ -33,7 +33,6 @@ namespace WasteNotBE.Controllers
             {
 
                 var items = await _context.Items
-                    .Include(i => i.Category)
                     .Include(i => i.User)
                     .OrderByDescending(p => p.DateCreated)
                     .Take(20)
@@ -43,7 +42,6 @@ namespace WasteNotBE.Controllers
             } else
             {
                 var items = await _context.Items
-                   .Include(i => i.Category)
                    .Include(i => i.User)
                    .OrderByDescending(p => p.DateCreated)
                    .Where(i => i.ReplacementTag.Contains(SearchString) | i.Title.Contains(SearchString))
@@ -62,7 +60,6 @@ namespace WasteNotBE.Controllers
             }
 
             var item = await _context.Items
-                .Include(i => i.Category)
                 .Include(i => i.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (item == null)
@@ -72,28 +69,53 @@ namespace WasteNotBE.Controllers
 
             return View(item);
         }
-
-        // GET: Items/Create
-        public async Task<IActionResult> CreateNewItem([Bind("Id,Title,Description,CategoryId,SourceLink,PhotoUrl,ReplacementTag,UserId,DateCreated")][FromRoute]int id )
+        //GET: Items/CreateNewItem
+        public IActionResult CreateNewItem()
         {
+           
+            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id");
+            return View();
+        }
+        // POST: Items/CreateNewItem
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateNewItem([FromRoute]int id, Item items )
+        {
+            ModelState.Remove("Items.User");
+            ModelState.Remove("Items.UserId");
             // Find the wishlist requested
             WishList WishListToAdd = await _context.WishLists.SingleOrDefaultAsync(wl => wl.Id == id);
 
             var user = await GetCurrentUserAsync();
 
             // Create new item
-            var item = new Item();
-            item.UserId = user.Id;
-            _context.Add(item);
+               
+            if (ModelState.IsValid)
+            {
+                items.User = user;
+                items.CategoryId = 3;
+                _context.Add(items);
+                await _context.SaveChangesAsync();
+         
+            }
+
 
             // Add Item to WishListItems
             var WishListItem = new WishListItem();
             //could also = passed in id
             WishListItem.WishListId = WishListToAdd.Id;
-            WishListItem.ItemId = item.Id;
+            WishListItem.ItemId = items.Id;
             _context.Add(WishListItem);
             await _context.SaveChangesAsync();
 
+            return View();
+        }
+
+        //GET: Items/CreateNewItem
+        public IActionResult Create()
+        {
+
+            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id");
             return View();
         }
 
@@ -102,15 +124,15 @@ namespace WasteNotBE.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Description,CategoryId,SourceLink,PhotoUrl,ReplacementTag,UserId,DateCreated")] Item item)
+        public async Task<IActionResult> Create([Bind("Id,Title,Description,SourceLink,PhotoUrl,ReplacementTag,UserId,DateCreated")] Item item)
         {
             if (ModelState.IsValid)
             {
+                item.CategoryId = 4;
                 _context.Add(item);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id", item.CategoryId);
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", item.UserId);
             return View(item);
         }
@@ -128,7 +150,6 @@ namespace WasteNotBE.Controllers
             {
                 return NotFound();
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id", item.CategoryId);
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", item.UserId);
             return View(item);
         }
@@ -165,7 +186,6 @@ namespace WasteNotBE.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id", item.CategoryId);
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", item.UserId);
             return View(item);
         }
@@ -179,7 +199,6 @@ namespace WasteNotBE.Controllers
             }
 
             var item = await _context.Items
-                .Include(i => i.Category)
                 .Include(i => i.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (item == null)
