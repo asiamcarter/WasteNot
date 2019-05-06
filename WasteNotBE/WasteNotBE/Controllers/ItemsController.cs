@@ -123,22 +123,15 @@ namespace WasteNotBE.Controllers
                 Categories.Add(li);
             }
 
-
             ItemCreateViewModel viewModel = new ItemCreateViewModel();
 
             viewModel.UserWishLists = WishLists;
             viewModel.ItemCategories = Categories;
 
-            //ViewData["UserWishLists"] = new SelectList(_context.WishLists.Where(w=>w.UserId == user.Id), "Id", "Title").Select(b => new SelectListItem {
-            //    Text = "Select A Wish List",
-            //    Value = ""
-            //}); ;
-           
-            ViewData["Categories"] = new SelectList(_context.Categories, "Id", "Title");
             return View(viewModel);
         }
 
-        //[Bind("Id,Title,Description,SourceLink,PhotoUrl,ReplacementTag,UserId,DateCreated")]
+
 
         // POST: Items/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -152,8 +145,7 @@ namespace WasteNotBE.Controllers
             var user = await GetCurrentUserAsync();
 
             if (ModelState.IsValid)
-            {
-               
+            {           
                 _context.Add(createditem.Item);
                 await _context.SaveChangesAsync();
                 // Add Item to WishListItems
@@ -163,11 +155,10 @@ namespace WasteNotBE.Controllers
                 WishListItem.ItemId = createditem.Item.Id;
                 _context.WishListItems.Add(WishListItem);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", new { id = createditem.Item.Id });
 
             }
 
-            //ViewData["UserWishLists"] = new SelectList(_context.WishLists, "Id", "Title", createditem.WishListId);      
             var UserWishList = _context.WishLists
                 .Where(w => w.UserId == user.Id);
 
@@ -214,11 +205,8 @@ namespace WasteNotBE.Controllers
 
                 Categories.Add(li);
             }
-
-            ViewData["Categories"] = new SelectList(_context.Categories, "Id", "Title", createditem.Item.CategoryId);
-            ItemCreateViewModel viewModel = new ItemCreateViewModel();
             createditem.UserWishLists = WishLists;
-            viewModel.ItemCategories = Categories;
+            createditem.ItemCategories = Categories;
             return View();
         }
 
