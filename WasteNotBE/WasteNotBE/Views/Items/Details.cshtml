@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Details";
 }
-
+<a asp-area="" asp-controller="WishListItems" asp-action="Create" asp-route-id="@Model.Id" class="btn-success">Add To WishList</a>
 <div class="item-detail-div">
     <div class="item-detail-img-div">
         <img src="@Html.DisplayFor(model => model.PhotoUrl)" class="item-detail-img" />
@@ -20,9 +20,7 @@
             @*<h4>@Html.DisplayNameFor(model => model.Category):</h4><p>@Html.DisplayFor(model => model.Category.Title)</p><br />*@
             <h4>@Html.DisplayNameFor(model => model.Description):</h4><p>@Html.DisplayFor(model => model.Description)</p><br />
             <a href="Html.DisplayFor(model => model.SourceLink)"> Source Link </a><br />
-            <a asp-area="" asp-controller="WishListItem" asp-action="Create" asp-route-id="@Model.Id" class="btn-success">Add to List</a>
-
-
+     
         </div>
     </div>
 </div>

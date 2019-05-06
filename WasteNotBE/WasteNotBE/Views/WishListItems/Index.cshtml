@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WasteNotBE.Models.WishList>
+﻿@model IEnumerable<WasteNotBE.Models.WishListItem>
 
 @{
     ViewData["Title"] = "Index";
@@ -10,17 +10,14 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<p>
-    <a asp-area="" asp-controller="Items" asp-action="Create" asp-route-id="" class="btn-success">Add Item</a>
-</p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.User)
+                @Html.DisplayNameFor(model => model.Item)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                @Html.DisplayNameFor(model => model.WishList)
             </th>
             <th></th>
         </tr>
@@ -29,13 +26,13 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.User.Id)
+                @Html.DisplayFor(modelItem => item.Item.Id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Title)
+                @Html.DisplayFor(modelItem => item.WishList.Id)
             </td>
             <td>
-                @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |*@
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>
