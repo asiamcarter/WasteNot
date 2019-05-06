@@ -70,58 +70,7 @@ namespace WasteNotBE.Controllers
 
             return View(item);
         }
-        ////GET: Items/CreateNewItem
-        //public IActionResult CreateNewItem()
-        //{
-           
-        //    ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id");
-        //    return View();
-        //}
-        //// POST: Items/CreateNewItem
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> CreateNewItem([FromRoute]int id, Item items )
-        //{
-        //    ModelState.Remove("Items.User");
-        //    ModelState.Remove("Items.UserId");
-        //    // Find the wishlist requested
-        //    WishList WishListToAdd = await _context.WishLists.SingleOrDefaultAsync(wl => wl.Id == id);
-
-        //    var user = await GetCurrentUserAsync();
-
-        //    // Create new item
-               
-        //    if (ModelState.IsValid)
-        //    {
-        //        items.User = user;
-        //        items.CategoryId = 3;
-        //        _context.Add(items);
-        //        await _context.SaveChangesAsync();
-         
-        //    }
-
-
-        //    // Add Item to WishListItems
-        //    var WishListItem = new WishListItem();
-        //    //could also = passed in id
-        //    WishListItem.WishListId = WishListToAdd.Id;
-        //    WishListItem.ItemId = items.Id;
-        //    _context.Add(WishListItem);
-        //    await _context.SaveChangesAsync();
-
-        //    return View();
-        //}
-
-        //GET: Items/CreateNewItem
-        //public async Task<IActionResult> Create()
-        //{
-        //    var user = await GetCurrentUserAsync();
-        //    // Grab User WishLists from database
-        //    var UserWishLists = _context.WishLists
-        //        .Where(w => w.UserId == user.Id);
-        //    return View();
-
-        //}
+       
 
         // GET: Items/Create
         public async Task <IActionResult> Create()
@@ -166,13 +115,14 @@ namespace WasteNotBE.Controllers
             return View(viewModel);
         }
 
+        //[Bind("Id,Title,Description,SourceLink,PhotoUrl,ReplacementTag,UserId,DateCreated")]
 
         // POST: Items/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Description,SourceLink,PhotoUrl,ReplacementTag,UserId,DateCreated")] ItemCreateViewModel createditem)
+        public async Task<IActionResult> Create(ItemCreateViewModel createditem)
         {
             ModelState.Remove("Item.User");
             ModelState.Remove("Item.UserId");
@@ -180,9 +130,17 @@ namespace WasteNotBE.Controllers
 
             if (ModelState.IsValid)
             {
+                createditem.Item.CategoryId = 3;
                 _context.Add(createditem.Item);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                // Add Item to WishListItems
+                var WishListItem = new WishListItem();
+                //could also = passed in id
+                WishListItem.WishListId = createditem.WishListId;
+                WishListItem.ItemId = createditem.Item.Id;
+                _context.WishListItems.Add(WishListItem);
+                await _context.SaveChangesAsync();
+                return View();
             }
 
             ViewData["UserWishLists"] = new SelectList(_context.WishLists, "Id", "Title", createditem.WishListId);
@@ -190,16 +148,13 @@ namespace WasteNotBE.Controllers
             var UserWishList = _context.WishLists
                 .Where(w => w.UserId == user.Id);
 
-
             List<SelectListItem> WishLists = new List<SelectListItem>();
-
 
             WishLists.Insert(0, new SelectListItem
             {
                 Text = "Select A Wish List",
                 Value = ""
             });
-
 
             foreach (var uwl in UserWishList)
             {
@@ -215,21 +170,10 @@ namespace WasteNotBE.Controllers
                 WishLists.Add(li);
             }
 
-
             ItemCreateViewModel viewModel = new ItemCreateViewModel();
-
-
             viewModel.UserWishLists = WishLists;
-
-     
-            // Add Item to WishListItems
-            var WishListItem = new WishListItem();
-            //could also = passed in id
-            WishListItem.WishListId = createditem.WishListId;
-            WishListItem.ItemId = createditem.Item.Id;
-            _context.WishListItems.Add(WishListItem);
-            await _context.SaveChangesAsync();
             return View();
+           
         }
 
         // GET: Items/Edit/5
