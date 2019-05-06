@@ -11,7 +11,7 @@ namespace WasteNotBE.Models
         public string Title { get; set; }
         public string Description { get; set; }
         public int CategoryId { get; set; }
-        public Category Category { get; set; }
+
         public string SourceLink { get; set; }
         public string PhotoUrl { get; set; }
         public string ReplacementTag { get; set; }

@@ -7,6 +7,7 @@ namespace WasteNotBE.Models.HomeViewModels
 {
     public class HomeIndexViewModel
     {
-        public ICollection<Item> ItemList { get; set; }
+        public int Id { get; set; }
+        public List<Item> ItemList { get; set; }
     }
 }

@@ -270,8 +270,6 @@ namespace WasteNotBE.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
-
                     b.HasIndex("UserId");
 
                     b.ToTable("Items");
@@ -289,7 +287,7 @@ namespace WasteNotBE.Migrations
                             ReplacementTag = "fork utensil utensils spork",
                             SourceLink = "https://earthhero.com/products/travel/bambu-spork-and-cork-set/",
                             Title = "Bambu Reusable Travel Fork",
-                            UserId = "ceb1a665-0c88-4dfa-8b3a-f70276840675"
+                            UserId = "a89ce0a8-ac52-4454-b563-8f4b297784cd"
                         },
                         new
                         {
@@ -304,7 +302,7 @@ namespace WasteNotBE.Migrations
                             ReplacementTag = "bag plastic grocery",
                             SourceLink = "https://www.amazon.com/BAGGU-Standard-Reusable-Shopping-Bag/dp/B00CRPOUS4/ref=as_li_ss_tl?ie=UTF8&qid=1510679139&sr=8-1&keywords=baggu&linkCode=sl1&tag=l0875-20&linkId=c95ee97caddd67a873d0f14dc139ed4a",
                             Title = "Baggu Reusable Tote Bags",
-                            UserId = "ceb1a665-0c88-4dfa-8b3a-f70276840675"
+                            UserId = "a89ce0a8-ac52-4454-b563-8f4b297784cd"
                         },
                         new
                         {
@@ -318,7 +316,7 @@ namespace WasteNotBE.Migrations
                             ReplacementTag = "bag plastic grocery",
                             SourceLink = "https://www.brushwithbamboo.com/shop/",
                             Title = "Bamboo Toothbrush",
-                            UserId = "ceb1a665-0c88-4dfa-8b3a-f70276840675"
+                            UserId = "a89ce0a8-ac52-4454-b563-8f4b297784cd"
                         },
                         new
                         {
@@ -328,7 +326,7 @@ namespace WasteNotBE.Migrations
                             ReplacementTag = "bath razor safety shave",
                             SourceLink = "https://www.thezerowastecollective.com/blog/shaving-with-a-safety-razor-this-zero-waste-swap-is-easier-than-you-think",
                             Title = "How To Use a Safety Razor",
-                            UserId = "ceb1a665-0c88-4dfa-8b3a-f70276840675"
+                            UserId = "a89ce0a8-ac52-4454-b563-8f4b297784cd"
                         },
                         new
                         {
@@ -339,7 +337,7 @@ namespace WasteNotBE.Migrations
                             ReplacementTag = "market farmer's market meal-planning grocery",
                             SourceLink = "https://www.forkintheroad.co/farmers-market-meal-planning/?utm_medium=social&utm_source=pinterest&utm_campaign=tailwind_tribes&utm_content=tribes&utm_term=555492632_20372870_160564",
                             Title = "Pan Your Meals Around The Farmer's Market",
-                            UserId = "ceb1a665-0c88-4dfa-8b3a-f70276840675"
+                            UserId = "a89ce0a8-ac52-4454-b563-8f4b297784cd"
                         },
                         new
                         {
@@ -350,7 +348,7 @@ namespace WasteNotBE.Migrations
                             ReplacementTag = "coffee espresso leftovers brownie recipe market meal-planning grocery",
                             SourceLink = "https://www.forkintheroad.co/leftover-espresso-grounds-brownies/",
                             Title = "Leftover Espresso Grounds Brownies",
-                            UserId = "ceb1a665-0c88-4dfa-8b3a-f70276840675"
+                            UserId = "a89ce0a8-ac52-4454-b563-8f4b297784cd"
                         },
                         new
                         {
@@ -361,7 +359,7 @@ namespace WasteNotBE.Migrations
                             ReplacementTag = "kitchen zero waste checklist",
                             SourceLink = "https://www.tinyyellowbungalow.com/room-by-room-zero-waste-guide/",
                             Title = "Zero Waste Kitchen Checklist",
-                            UserId = "ceb1a665-0c88-4dfa-8b3a-f70276840675"
+                            UserId = "a89ce0a8-ac52-4454-b563-8f4b297784cd"
                         },
                         new
                         {
@@ -372,39 +370,39 @@ namespace WasteNotBE.Migrations
                             ReplacementTag = "beauty sustainable lip cheek blush",
                             SourceLink = "https://credobeauty.com/products/rms-beauty-lip2cheek-beloved?sscid=41k3_obmcm&utm_source=shareasale&utm_medium=referral&utm_campaign=shareasale",
                             Title = "RMS Lip2Cheek",
-                            UserId = "ceb1a665-0c88-4dfa-8b3a-f70276840675"
+                            UserId = "a89ce0a8-ac52-4454-b563-8f4b297784cd"
                         },
                         new
                         {
                             Id = 9,
-                            CategoryId = 6,
+                            CategoryId = 9,
                             Description = "Ditch the plastic bottle and switch to a bar! It’s a *gasp* moment for hair care devotees, I know, but there are so many eco-friendly options out there that you’re sure to find a product you love. Not only is this a plastic-free bathroom essential they’re also known to outlast standard shampoos.",
                             PhotoUrl = "https://i.pinimg.com/564x/98/ce/ff/98ceffe3863fb31c49e4176e1b515442.jpg",
                             ReplacementTag = "beauty sustainable shampoo hair",
                             SourceLink = "https://www.amazon.com/dp/B07572ZHB9?ascsubtag=.Mjg3Mzg2LTA.056fb4ed-6b7f-11e9-941d-81adbcf9f5c1&tag=rewardstyle-20&th=1",
                             Title = "Shampoo Bar",
-                            UserId = "ceb1a665-0c88-4dfa-8b3a-f70276840675"
+                            UserId = "a89ce0a8-ac52-4454-b563-8f4b297784cd"
                         },
                         new
                         {
                             Id = 10,
-                            CategoryId = 7,
+                            CategoryId = 9,
                             PhotoUrl = "https://i.pinimg.com/564x/aa/47/53/aa47539be1a44b76422539b28eb98aa5.jpg",
                             ReplacementTag = "Zero Waste Designers, the best zero waste fashion collections, zero waste sustainable fashion, zero waste fashion techniques, what is zero waste fashion",
                             SourceLink = "https://eluxemagazine.com/fashion/zero-waste-designers/",
                             Title = "6 Zero Waste Designers Who Are Just Killing It",
-                            UserId = "ceb1a665-0c88-4dfa-8b3a-f70276840675"
+                            UserId = "a89ce0a8-ac52-4454-b563-8f4b297784cd"
                         },
                         new
                         {
                             Id = 11,
-                            CategoryId = 7,
+                            CategoryId = 0,
                             Description = "Transitioning and living a zero waste life means working with your closet in order to extend the life of your existing clothes or find ways to purchase clothing that is less harmful to the Earth.",
                             PhotoUrl = "https://i.pinimg.com/564x/d8/43/29/d84329e35bc3536810ffb2999b59ee0a.jpg",
                             ReplacementTag = "closet transition clothing wardrobe apparel",
                             SourceLink = "http://www.thedosomethingproject.com/home/zero-waste-closet-transition",
                             Title = "Zero Waste: Closet Transition",
-                            UserId = "ceb1a665-0c88-4dfa-8b3a-f70276840675"
+                            UserId = "a89ce0a8-ac52-4454-b563-8f4b297784cd"
                         },
                         new
                         {
@@ -417,7 +415,7 @@ namespace WasteNotBE.Migrations
                             ReplacementTag = "dryer drying laundry",
                             SourceLink = "https://www.amazon.com/Household-Essentials-6524-Folding-Clothes/dp/B003VYAGOC/ref=as_li_ss_tl?ie=UTF8&qid=1510535751&sr=8-4&keywords=bamboo+drying+rack&linkCode=sl1&tag=l0875-20&linkId=4cb236866ff58a11a6c410c505662976",
                             Title = "Bamboo Clothes Drying Rack",
-                            UserId = "ceb1a665-0c88-4dfa-8b3a-f70276840675"
+                            UserId = "a89ce0a8-ac52-4454-b563-8f4b297784cd"
                         },
                         new
                         {
@@ -431,7 +429,7 @@ namespace WasteNotBE.Migrations
                             ReplacementTag = "brush dishes kitchen bottle soap dish",
                             SourceLink = "https://www.therefillrevolution.com/household/redecker-wooden-milk-bottle-brush?category=Kitchen&rfsn=1119018.bfaf1e",
                             Title = "Compostable Wooden Dish and Bottle Brush",
-                            UserId = "ceb1a665-0c88-4dfa-8b3a-f70276840675"
+                            UserId = "a89ce0a8-ac52-4454-b563-8f4b297784cd"
                         },
                         new
                         {
@@ -442,7 +440,7 @@ namespace WasteNotBE.Migrations
                             ReplacementTag = "office desk",
                             SourceLink = "google.com",
                             Title = "Desk Eco-Friendly Checklist",
-                            UserId = "ceb1a665-0c88-4dfa-8b3a-f70276840675"
+                            UserId = "a89ce0a8-ac52-4454-b563-8f4b297784cd"
                         },
                         new
                         {
@@ -453,7 +451,7 @@ namespace WasteNotBE.Migrations
                             ReplacementTag = "office tips desk work",
                             SourceLink = "https://smallshop.co.uk/blog/2018/2/16/7-ways-to-go-zero-waste-at-work?utm_content=tribes&utm_term=316545498_9353590_257281",
                             Title = "Zero Waste Office",
-                            UserId = "ceb1a665-0c88-4dfa-8b3a-f70276840675"
+                            UserId = "a89ce0a8-ac52-4454-b563-8f4b297784cd"
                         });
                 });
 
@@ -478,13 +476,13 @@ namespace WasteNotBE.Migrations
                         {
                             Id = 1,
                             Title = "Essentials",
-                            UserId = "ceb1a665-0c88-4dfa-8b3a-f70276840675"
+                            UserId = "a89ce0a8-ac52-4454-b563-8f4b297784cd"
                         },
                         new
                         {
                             Id = 2,
                             Title = "WishList",
-                            UserId = "ceb1a665-0c88-4dfa-8b3a-f70276840675"
+                            UserId = "a89ce0a8-ac52-4454-b563-8f4b297784cd"
                         });
                 });
 
@@ -578,17 +576,17 @@ namespace WasteNotBE.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "ceb1a665-0c88-4dfa-8b3a-f70276840675",
+                            Id = "a89ce0a8-ac52-4454-b563-8f4b297784cd",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d80093f9-1806-4df8-aa45-d69f5a7457df",
+                            ConcurrencyStamp = "c839ef80-43d6-40fc-a6c7-aa59b7377824",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAECXj0rBgQr/iwaVF5lns77rfb339EKeLChnryEQrJAJ1j46SbwVBPqrNArHOu8GUlA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECN01AZdU/NniOzZ8cahH86/HrwnY4n4K9oYR4cd0u7FFo00Az9VPXxRMPaOxUn5Bg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "cfd79718-f082-4b51-b570-6eb1604346a1",
+                            SecurityStamp = "93bf2895-d280-4946-971c-88675acae3ce",
                             TwoFactorEnabled = false,
                             UserName = "admin",
                             FirstName = "admin",
@@ -644,11 +642,6 @@ namespace WasteNotBE.Migrations
 
             modelBuilder.Entity("WasteNotBE.Models.Item", b =>
                 {
-                    b.HasOne("WasteNotBE.Models.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("WasteNotBE.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
@@ -669,7 +662,7 @@ namespace WasteNotBE.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("WasteNotBE.Models.WishList", "WishList")
-                        .WithMany()
+                        .WithMany("WishListItems")
                         .HasForeignKey("WishListId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

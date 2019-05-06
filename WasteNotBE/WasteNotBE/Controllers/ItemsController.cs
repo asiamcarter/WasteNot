@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WasteNotBE.Data;
 using WasteNotBE.Models;
+using WasteNotBE.Models.ItemViewModels;
 
 namespace WasteNotBE.Controllers
 {
@@ -33,7 +34,6 @@ namespace WasteNotBE.Controllers
             {
 
                 var items = await _context.Items
-                    .Include(i => i.Category)
                     .Include(i => i.User)
                     .OrderByDescending(p => p.DateCreated)
                     .Take(20)
@@ -43,7 +43,6 @@ namespace WasteNotBE.Controllers
             } else
             {
                 var items = await _context.Items
-                   .Include(i => i.Category)
                    .Include(i => i.User)
                    .OrderByDescending(p => p.DateCreated)
                    .Where(i => i.ReplacementTag.Contains(SearchString) | i.Title.Contains(SearchString))
@@ -62,7 +61,6 @@ namespace WasteNotBE.Controllers
             }
 
             var item = await _context.Items
-                .Include(i => i.Category)
                 .Include(i => i.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (item == null)
@@ -72,47 +70,144 @@ namespace WasteNotBE.Controllers
 
             return View(item);
         }
+       
 
         // GET: Items/Create
-        public async Task<IActionResult> CreateNewItem([Bind("Id,Title,Description,CategoryId,SourceLink,PhotoUrl,ReplacementTag,UserId,DateCreated")][FromRoute]int id )
+        public async Task <IActionResult> Create()
         {
-            // Find the wishlist requested
-            WishList WishListToAdd = await _context.WishLists.SingleOrDefaultAsync(wl => wl.Id == id);
-
             var user = await GetCurrentUserAsync();
+            var UserWishList = _context.WishLists
+                .Where(w => w.UserId == user.Id);
+ 
+            List<SelectListItem> WishLists = new List<SelectListItem>();
 
-            // Create new item
-            var item = new Item();
-            item.UserId = user.Id;
-            _context.Add(item);
+           WishLists.Insert(0, new SelectListItem
+            {
+                Text = "Select A Wish List",
+                Value = ""
+            });
+        
+            foreach (var uwl in UserWishList)
+            {
+               
+                SelectListItem li = new SelectListItem
+                {
+                    // Give a value to li
+                    Value = uwl.Id.ToString(),
+                    // Provide text to li
+                    Text = uwl.Title
+                };
+            
+                WishLists.Add(li);
+            }
 
-            // Add Item to WishListItems
-            var WishListItem = new WishListItem();
-            //could also = passed in id
-            WishListItem.WishListId = WishListToAdd.Id;
-            WishListItem.ItemId = item.Id;
-            _context.Add(WishListItem);
-            await _context.SaveChangesAsync();
+            var ItemCategories = _context.Categories;
+            List<SelectListItem> Categories = new List<SelectListItem>();
+            Categories.Insert(0, new SelectListItem
+            {
+                Text = "Choose A Category",
+                Value = ""
+            });
 
-            return View();
+            foreach (var cat in ItemCategories)
+            {
+
+                SelectListItem li = new SelectListItem
+                {
+                    // Give a value to li
+                    Value = cat.Id.ToString(),
+                    // Provide text to li
+                    Text = cat.Title
+                };
+
+                Categories.Add(li);
+            }
+
+            ItemCreateViewModel viewModel = new ItemCreateViewModel();
+
+            viewModel.UserWishLists = WishLists;
+            viewModel.ItemCategories = Categories;
+
+            return View(viewModel);
         }
+
+
 
         // POST: Items/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Description,CategoryId,SourceLink,PhotoUrl,ReplacementTag,UserId,DateCreated")] Item item)
+        public async Task<IActionResult> Create(ItemCreateViewModel createditem)
         {
+            ModelState.Remove("Item.User");
+            ModelState.Remove("Item.UserId");
+            var user = await GetCurrentUserAsync();
+
             if (ModelState.IsValid)
-            {
-                _context.Add(item);
+            {           
+                _context.Add(createditem.Item);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                // Add Item to WishListItems
+                var WishListItem = new WishListItem();
+                //could also = passed in id
+                WishListItem.WishListId = createditem.WishListId;
+                WishListItem.ItemId = createditem.Item.Id;
+                _context.WishListItems.Add(WishListItem);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Details", new { id = createditem.Item.Id });
+
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id", item.CategoryId);
-            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", item.UserId);
-            return View(item);
+
+            var UserWishList = _context.WishLists
+                .Where(w => w.UserId == user.Id);
+
+            List<SelectListItem> WishLists = new List<SelectListItem>();
+
+            WishLists.Insert(0, new SelectListItem
+            {
+                Text = "Select A Wish List",
+                Value = ""
+            });
+
+            foreach (var uwl in UserWishList)
+            {
+
+                SelectListItem li = new SelectListItem
+                {
+                    // Give a value to li
+                    Value = uwl.Id.ToString(),
+                    // Provide text to li
+                    Text = uwl.Title
+                };
+
+                WishLists.Add(li);
+            }
+
+            var ItemCategories = _context.Categories;
+            List<SelectListItem> Categories = new List<SelectListItem>();
+            Categories.Insert(0, new SelectListItem
+            {
+                Text = "Choose A Category",
+                Value = ""
+            });
+
+            foreach (var cat in ItemCategories)
+            {
+
+                SelectListItem li = new SelectListItem
+                {
+                    // Give a value to li
+                    Value = cat.Id.ToString(),
+                    // Provide text to li
+                    Text = cat.Title
+                };
+
+                Categories.Add(li);
+            }
+            createditem.UserWishLists = WishLists;
+            createditem.ItemCategories = Categories;
+            return View();
         }
 
         // GET: Items/Edit/5
@@ -128,7 +223,6 @@ namespace WasteNotBE.Controllers
             {
                 return NotFound();
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id", item.CategoryId);
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", item.UserId);
             return View(item);
         }
@@ -165,7 +259,6 @@ namespace WasteNotBE.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id", item.CategoryId);
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", item.UserId);
             return View(item);
         }
@@ -179,7 +272,6 @@ namespace WasteNotBE.Controllers
             }
 
             var item = await _context.Items
-                .Include(i => i.Category)
                 .Include(i => i.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (item == null)
