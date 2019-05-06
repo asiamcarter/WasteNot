@@ -11,6 +11,7 @@ namespace WasteNotBE.Models.ItemViewModels
     {
         public Item Item { get; set; }
         public List<SelectListItem> UserWishLists { get; set; }
+        public List<SelectListItem> ItemCategories { get; set; }
         public WishList WishList { get; set; }
         public int WishListId { get; set; }
         public WishListItem WishListItem { get; set; }
