@@ -73,6 +73,9 @@ namespace WasteNotBE
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+                routes.MapRoute(
+                    name: "Profile",
+                    template: "{controller=WishLists}/{action=Index}/{id?}");
             });
         }
     }

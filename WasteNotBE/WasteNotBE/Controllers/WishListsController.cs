@@ -27,6 +27,7 @@ namespace WasteNotBE.Controllers
 
 
         // GET: WishLists
+        [Route("Profile")]
         public async Task<IActionResult> Index()
         {
             var user = await GetCurrentUserAsync();
