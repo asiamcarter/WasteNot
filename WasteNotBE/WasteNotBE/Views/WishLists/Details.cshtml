@@ -29,13 +29,14 @@
 
         {
             <p>@Html.DisplayFor(modelItem => item.Item.Title)</p>
-        }
+}
+
+            <p><a asp-controller="WishLists" asp-action="Delete" asp-route-id="@Model.Id" class="btn-success">DELETE</a></p>
 
     </dl>
 </div>
-<a asp-controller="Items" asp-action="CreateNewItem" asp-route-id="@Model.Id" class="btn-success">Create New Item</a>
+<a asp-controller="Items" asp-action="" asp-route-id="@Model.Id" class="btn-success">Create New Item</a>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
 
