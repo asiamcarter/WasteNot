@@ -8,16 +8,17 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WasteNotBE.Data;
 using WasteNotBE.Models;
+using WasteNotBE.Models.ApplicationUserViewModels;
 
 namespace WasteNotBE.Controllers
 {
-    public class WishListsController : Controller
+    public class ProfileController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
 
         private readonly ApplicationDbContext _context;
 
-        public WishListsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public ProfileController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
             _context = context;
@@ -25,76 +26,62 @@ namespace WasteNotBE.Controllers
 
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
-
-        // GET: WishLists
-        //[Route("Profile")]
+        // GET: Profile
         public async Task<IActionResult> Index()
         {
-            var user = await GetCurrentUserAsync();
-       
+            var DatabaseUsers = await _context.ApplicationUsers.ToListAsync();
+            var ViewList = new List<ProfileViewModel>();
+            foreach (var user in DatabaseUsers)
+            {
+                var newViewModel = new ProfileViewModel();
+                newViewModel.User = user;
+                ViewList.Add(newViewModel);
+            }
 
-            var applicationDbContext = _context.WishLists.Include(w => w.User).Include(w => w.WishListItems).Where(w => w.UserId == user.Id);
-            return View(await applicationDbContext.ToListAsync());
+            return View(ViewList);  
         }
 
-        // GET: WishLists/Details/5
-        public async Task<IActionResult> Details(int? id)
+        // GET: Profile/Details/5
+        public async Task<IActionResult> Details(string id)
         {
-            var user = await GetCurrentUserAsync();
-
             if (id == null)
-
             {
                 return NotFound();
             }
 
-            var wishList = await _context.WishLists
-                .Include(w => w.User)
-                .Include(w => w.WishListItems)
-                .FirstOrDefaultAsync(m => m.Id == id);
-
-            var Items = await _context.WishListItems
-                .Include(w => w.Item)
-                .Where(w => w.ItemId == w.Item.Id && w.WishListId == wishList.Id)
-                .ToListAsync();
-
-            wishList.WishListItems = Items;
-
-            if (wishList == null)
+            var profileViewModel = await _context.ApplicationUsers
+                .FirstOrDefaultAsync(m => m.UserName == id);
+            if (profileViewModel == null)
             {
                 return NotFound();
             }
 
-            return View(wishList);
+            return View(profileViewModel);
         }
 
-
-
-        // GET: WishLists/Create
+        // GET: Profile/Create
         public IActionResult Create()
         {
-            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id");
             return View();
         }
 
-        // POST: WishLists/Create
+        // POST: Profile/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserId,Title")] WishList wishList)
+        public async Task<IActionResult> Create([Bind("Id,Username,FirstName,LastName,Story,PhotoURL")] ProfileViewModel profileViewModel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(wishList);
+                _context.Add(profileViewModel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", wishList.UserId);
-            return View(wishList);
+            return View(profileViewModel);
         }
 
-        // GET: WishLists/Edit/5
+        // GET: Profile/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -102,23 +89,22 @@ namespace WasteNotBE.Controllers
                 return NotFound();
             }
 
-            var wishList = await _context.WishLists.FindAsync(id);
-            if (wishList == null)
+            var profileViewModel = await _context.ProfileViewModel.FindAsync(id);
+            if (profileViewModel == null)
             {
                 return NotFound();
             }
-            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", wishList.UserId);
-            return View(wishList);
+            return View(profileViewModel);
         }
 
-        // POST: WishLists/Edit/5
+        // POST: Profile/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId,Title")] WishList wishList)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Username,FirstName,LastName,Story,PhotoURL")] ProfileViewModel profileViewModel)
         {
-            if (id != wishList.Id)
+            if (id != profileViewModel.Id)
             {
                 return NotFound();
             }
@@ -127,12 +113,12 @@ namespace WasteNotBE.Controllers
             {
                 try
                 {
-                    _context.Update(wishList);
+                    _context.Update(profileViewModel);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!WishListExists(wishList.Id))
+                    if (!ProfileViewModelExists(profileViewModel.Id))
                     {
                         return NotFound();
                     }
@@ -143,11 +129,10 @@ namespace WasteNotBE.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", wishList.UserId);
-            return View(wishList);
+            return View(profileViewModel);
         }
 
-        // GET: WishLists/Delete/5
+        // GET: Profile/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -155,31 +140,30 @@ namespace WasteNotBE.Controllers
                 return NotFound();
             }
 
-            var wishList = await _context.WishLists
-                .Include(w => w.User)
+            var profileViewModel = await _context.ProfileViewModel
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (wishList == null)
+            if (profileViewModel == null)
             {
                 return NotFound();
             }
 
-            return View(wishList);
+            return View(profileViewModel);
         }
 
-        // POST: WishLists/Delete/5
+        // POST: Profile/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var wishList = await _context.WishLists.FindAsync(id);
-            _context.WishLists.Remove(wishList);
+            var profileViewModel = await _context.ProfileViewModel.FindAsync(id);
+            _context.ProfileViewModel.Remove(profileViewModel);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool WishListExists(int id)
+        private bool ProfileViewModelExists(int id)
         {
-            return _context.WishLists.Any(e => e.Id == id);
+            return _context.ProfileViewModel.Any(e => e.Id == id);
         }
     }
 }

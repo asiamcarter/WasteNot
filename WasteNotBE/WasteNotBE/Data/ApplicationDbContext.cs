@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using WasteNotBE.Models;
+using WasteNotBE.Models.ApplicationUserViewModels;
 
 
 namespace WasteNotBE.Data
@@ -388,6 +389,8 @@ namespace WasteNotBE.Data
                          }
             );
         }
+
+        public DbSet<WasteNotBE.Models.ApplicationUserViewModels.ProfileViewModel> ProfileViewModel { get; set; }
 
     }
 }
