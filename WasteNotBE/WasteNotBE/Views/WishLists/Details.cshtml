@@ -29,9 +29,9 @@
 
         {
             <p>@Html.DisplayFor(modelItem => item.Item.Title)</p>
-            <p><a asp-controller="WishListItems" asp-action="Delete" asp-route-id="@item.Id" class="btn-success">DELETE</a></p>
 }
 
+            <p><a asp-controller="WishLists" asp-action="Delete" asp-route-id="@Model.Id" class="btn-success">DELETE</a></p>
 
     </dl>
 </div>
