@@ -16,21 +16,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Id)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Username)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Story)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PhotoURL)
-            </th>
+         
             <th></th>
         </tr>
     </thead>
@@ -40,21 +26,14 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Id)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Username)
-            </td>
+            
             <td>
                 @Html.DisplayFor(modelItem => item.User.FirstName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.LastName)
+                @Html.DisplayFor(modelItem => item.User.FirstName)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Story)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PhotoURL)
-            </td>
+           
             <td>
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                 <a asp-action="Details" asp-route-id="@item.User.UserName">Details</a> |

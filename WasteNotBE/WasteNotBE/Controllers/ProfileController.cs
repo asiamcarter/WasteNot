@@ -29,6 +29,7 @@ namespace WasteNotBE.Controllers
         // GET: Profile
         public async Task<IActionResult> Index()
         {
+
             var DatabaseUsers = await _context.ApplicationUsers.ToListAsync();
             var ViewList = new List<ProfileViewModel>();
             foreach (var user in DatabaseUsers)
@@ -42,8 +43,9 @@ namespace WasteNotBE.Controllers
         }
 
         // GET: Profile/Details/5
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> Details([FromRoute] string id)
         {
+            var user = await GetCurrentUserAsync();
             if (id == null)
             {
                 return NotFound();
@@ -51,12 +53,17 @@ namespace WasteNotBE.Controllers
 
             var profileViewModel = await _context.ApplicationUsers
                 .FirstOrDefaultAsync(m => m.UserName == id);
+
+            //var profileWishLists = await _context.WishLists.Include(w => w.User).Include(w => w.WishListItems).Where(w => w.UserId == user.Id).ToListAsync();
+            var newViewModel = new ProfileViewModel();
+            ////newViewModel.UserWishLists = profileWishLists;
+            newViewModel.User = profileViewModel;
             if (profileViewModel == null)
             {
                 return NotFound();
             }
 
-            return View(profileViewModel);
+            return View(newViewModel);
         }
 
         // GET: Profile/Create
