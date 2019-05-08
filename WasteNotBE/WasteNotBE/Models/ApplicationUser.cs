@@ -25,5 +25,7 @@ namespace WasteNotBE.Models
         public string PhotoURL { get; set; }
 
         public bool isAdmin { get; set; }
+
+        List<WishList> UserWishLists { get; set; }
     }
 }

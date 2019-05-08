@@ -390,7 +390,9 @@ namespace WasteNotBE.Data
             );
         }
 
-        public DbSet<WasteNotBE.Models.ApplicationUserViewModels.ProfileViewModel> ProfileViewModel { get; set; }
+
+
+       
 
     }
 }

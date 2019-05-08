@@ -5,19 +5,25 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<h1>UserProfile</h1>
+
 <h1>Index</h1>
 
 <div>
     <h4>ProfileViewModel</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Id)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.User.FirstName)
         </dd>
     </dl>
+    @foreach(var item in Model.UserWishLists)
+    {
+    <p> @Html.DisplayFor(model => item.Title)</p>
+    }
 </div>
 <div>
     @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |

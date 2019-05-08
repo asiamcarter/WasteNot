@@ -26,44 +26,43 @@ namespace WasteNotBE.Controllers
 
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
-        // GET: Profile
         public async Task<IActionResult> Index()
         {
+            return View();
+        }
 
-            var DatabaseUsers = await _context.ApplicationUsers.ToListAsync();
-            var ViewList = new List<ProfileViewModel>();
-            foreach (var user in DatabaseUsers)
-            {
-                var newViewModel = new ProfileViewModel();
-                newViewModel.User = user;
-                ViewList.Add(newViewModel);
-            }
+        // GET: Profile
+        public async Task<IActionResult> UserProfile([FromRoute]string id)
+        {
+            var user = await GetCurrentUserAsync();
+            var applicationUser = await _context.ApplicationUsers
+               .FirstOrDefaultAsync(m => m.Id == id);
+            var UserProfile = new ProfileViewModel();
+            UserProfile.User = applicationUser;
+            var userWishlists = await _context.WishLists
+                .Include(w => w.WishListItems)
+                .Where(w => w.UserId == id).ToListAsync();
+            UserProfile.UserWishLists = userWishlists;
 
-            return View(ViewList);  
+            return View(UserProfile);
         }
 
         // GET: Profile/Details/5
-        public async Task<IActionResult> Details([FromRoute] string id)
+        public async Task<IActionResult> Details(string id)
         {
-            var user = await GetCurrentUserAsync();
             if (id == null)
             {
                 return NotFound();
             }
 
-            var profileViewModel = await _context.ApplicationUsers
-                .FirstOrDefaultAsync(m => m.UserName == id);
-
-            //var profileWishLists = await _context.WishLists.Include(w => w.User).Include(w => w.WishListItems).Where(w => w.UserId == user.Id).ToListAsync();
-            var newViewModel = new ProfileViewModel();
-            ////newViewModel.UserWishLists = profileWishLists;
-            newViewModel.User = profileViewModel;
-            if (profileViewModel == null)
+            var applicationUser = await _context.ApplicationUsers
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (applicationUser == null)
             {
                 return NotFound();
             }
 
-            return View(newViewModel);
+            return View(applicationUser);
         }
 
         // GET: Profile/Create
@@ -77,31 +76,31 @@ namespace WasteNotBE.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Username,FirstName,LastName,Story,PhotoURL")] ProfileViewModel profileViewModel)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Story,PhotoURL,isAdmin")] ApplicationUser applicationUser)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(profileViewModel);
+                _context.Add(applicationUser);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(profileViewModel);
+            return View(applicationUser);
         }
 
         // GET: Profile/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var profileViewModel = await _context.ProfileViewModel.FindAsync(id);
-            if (profileViewModel == null)
+            var applicationUser = await _context.ApplicationUsers.FindAsync(id);
+            if (applicationUser == null)
             {
                 return NotFound();
             }
-            return View(profileViewModel);
+            return View(applicationUser);
         }
 
         // POST: Profile/Edit/5
@@ -109,9 +108,9 @@ namespace WasteNotBE.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Username,FirstName,LastName,Story,PhotoURL")] ProfileViewModel profileViewModel)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,FirstName,LastName,Story,PhotoURL,isAdmin")] ApplicationUser applicationUser)
         {
-            if (id != profileViewModel.Id)
+            if (id != applicationUser.Id)
             {
                 return NotFound();
             }
@@ -120,12 +119,12 @@ namespace WasteNotBE.Controllers
             {
                 try
                 {
-                    _context.Update(profileViewModel);
+                    _context.Update(applicationUser);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProfileViewModelExists(profileViewModel.Id))
+                    if (!ApplicationUserExists(applicationUser.Id))
                     {
                         return NotFound();
                     }
@@ -136,41 +135,41 @@ namespace WasteNotBE.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(profileViewModel);
+            return View(applicationUser);
         }
 
         // GET: Profile/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var profileViewModel = await _context.ProfileViewModel
+            var applicationUser = await _context.ApplicationUsers
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (profileViewModel == null)
+            if (applicationUser == null)
             {
                 return NotFound();
             }
 
-            return View(profileViewModel);
+            return View(applicationUser);
         }
 
         // POST: Profile/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var profileViewModel = await _context.ProfileViewModel.FindAsync(id);
-            _context.ProfileViewModel.Remove(profileViewModel);
+            var applicationUser = await _context.ApplicationUsers.FindAsync(id);
+            _context.ApplicationUsers.Remove(applicationUser);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProfileViewModelExists(int id)
+        private bool ApplicationUserExists(string id)
         {
-            return _context.ProfileViewModel.Any(e => e.Id == id);
+            return _context.ApplicationUsers.Any(e => e.Id == id);
         }
     }
 }

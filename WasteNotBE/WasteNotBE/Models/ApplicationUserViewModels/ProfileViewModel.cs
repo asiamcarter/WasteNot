@@ -11,6 +11,7 @@ namespace WasteNotBE.Models.ApplicationUserViewModels
         public int Id { get; set; }
         public ApplicationUser User { get; set; }
         public List<WishList> UserWishLists { get; set; }
+        public WishList WishList { get; set; }
         //[Display(Name = "Username")]
         //public string Username { get; set; }
 
