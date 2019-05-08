@@ -41,9 +41,10 @@ namespace WasteNotBE.Controllers
             UserProfile.User = applicationUser;
             var userWishlists = await _context.WishLists
                 .Include(w => w.WishListItems)
-                .Where(w => w.UserId == id).ToListAsync();
-            UserProfile.UserWishLists = userWishlists;
+                .Where(w => w.UserId == id)
+                .ToListAsync();
 
+            UserProfile.UserWishLists = userWishlists;
             return View(UserProfile);
         }
 

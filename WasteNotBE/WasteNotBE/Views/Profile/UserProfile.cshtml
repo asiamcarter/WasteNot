@@ -20,9 +20,21 @@
             @Html.DisplayFor(model => model.User.FirstName)
         </dd>
     </dl>
-    @foreach(var item in Model.UserWishLists)
+    @foreach (var item in Model.UserWishLists)
     {
-    <p> @Html.DisplayFor(model => item.Title)</p>
+        <p> @Html.DisplayFor(modelItem => item.Title)</p>
+
+        @foreach (var wli in item.WishListItems)
+        {
+            @foreach (var items in Model.Items)
+            {
+                if (item.Id == wli.ItemId)
+                {
+                    <p> @Html.DisplayFor(modelItem => items.Title)</p>
+                }
+            }
+
+        }
     }
 </div>
 <div>
