@@ -45,6 +45,8 @@ namespace WasteNotBE.Controllers
                 .ToListAsync();
 
             UserProfile.UserWishLists = userWishlists;
+      
+
             return View(UserProfile);
         }
 
