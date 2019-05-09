@@ -12,7 +12,7 @@
             <a asp-controller="Items" asp-action="Details" asp-route-id="@item.Id">
                 <img src="@Html.DisplayFor(modelItem => item.PhotoUrl)" />
             </a>
-            <p>@Html.DisplayFor(modelItem => item.Title)</p>
+            @*<p>@Html.DisplayFor(modelItem => item.Title)</p>*@
             @*<p>@Html.DisplayFor(modelItem => item.User.FirstName)</p>*@
         </div>
            
