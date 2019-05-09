@@ -39,13 +39,28 @@ namespace WasteNotBE.Controllers
                .FirstOrDefaultAsync(m => m.Id == id);
             var UserProfile = new ProfileViewModel();
             UserProfile.User = applicationUser;
+
             var userWishlists = await _context.WishLists
                 .Include(w => w.WishListItems)
                 .Where(w => w.UserId == id)
                 .ToListAsync();
 
             UserProfile.UserWishLists = userWishlists;
-      
+
+            UserProfile.GroupedItems = await (
+              from wl in _context.WishLists.Where(w=> w.UserId == id)
+              join wli in _context.WishListItems
+              on wl.Id equals wli.WishListId
+              join i in _context.Items
+              on wli.ItemId equals i.Id
+              group new { wl, i } by new { wl.Id, i.Title} into grouped
+              select new GroupedItems
+              {
+                  WishListId = grouped.Key.Id,
+                  WishListTitle = grouped.Key.Title,
+                
+                  Items = grouped.Select(x => x.i)
+              }).Take(3).ToListAsync();
 
             return View(UserProfile);
         }

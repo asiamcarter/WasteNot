@@ -28,20 +28,56 @@
                 </dd>
             </dl>
         </div>
-        </a>
+</a>
 
-        
-        <p>
-            <a asp-controller="Items" asp-action="Create" class="btn-success">Create New Item</a>
-        </p>
-        @foreach (var item in Model.UserWishLists)
+
+<p>
+    <a asp-controller="Items" asp-action="Create" class="btn-success">Create New Item</a>
+</p>
+@foreach (var item in Model.UserWishLists)
+{
+    <p>@Html.DisplayFor(modelItem => item.Title)</p>
+foreach (var groupeditem in Model.GroupedItems)
+{
+    if (item.Id != groupeditem.WishListId)
+
+    {
+
+        foreach (var gi in groupeditem.Items)
         {
-            <a asp-controller="WishLists" asp-action="Details" asp-route-id="@item.Id">
-                <p>@Html.DisplayFor(modelItem => item.Title)</p>
-            </a>
+            <p>@Html.DisplayFor(modelItem => gi.Title)</p>
         }
+
+
+    }
+
+}
+}
+
+
+@*@foreach (var item in Model.UserWishLists)
+    {
+        foreach (var groupeditem in Model.GroupedItems)
+        {
+            if (item.Id = groupeditem.WishListId)
+
+            {
+                    <a asp-controller="WishLists" asp-action="Details" asp-route-id="@item.Id">
+                        <p>@Html.DisplayFor(modelItem => item.Title)</p>
+                    </a>
+
+            }
+
+        }
+    }*@
+
+
+
+
+
+
     </div>
-    <div>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.User.Id })
-        <a asp-action="Index">Back to List</a>
-    </div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.User.Id })
+    <a asp-action="Index">Back to List</a>
+</div>

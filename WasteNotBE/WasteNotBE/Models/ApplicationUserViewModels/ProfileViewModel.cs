@@ -14,20 +14,8 @@ namespace WasteNotBE.Models.ApplicationUserViewModels
         public WishList WishList { get; set; }
         public List<WishListItem> WishListItems { get; set; }
         public List<Item> Items { get; set; }
-        //[Display(Name = "Username")]
-        //public string Username { get; set; }
 
-        //[Display(Name = "First Name")]
-        //public string FirstName { get; set; }
-
-        //[Display(Name = "Last Name")]
-        //public string LastName { get; set; }
-
-        //[Display(Name = "Bio")]
-        //public string Story { get; set; }
-
-        //[Display(Name = "Photo")]
-        //public string PhotoURL { get; set; }
+        public List<GroupedItems> GroupedItems { get; set; }
 
 
     }
