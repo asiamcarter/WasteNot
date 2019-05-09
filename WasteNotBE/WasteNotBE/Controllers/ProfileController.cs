@@ -97,13 +97,21 @@ namespace WasteNotBE.Controllers
             {
                 return NotFound();
             }
+            //access user that's logged in
+            var currentUser = await GetCurrentUserAsync();
 
-            var applicationUser = await _context.ApplicationUsers.FindAsync(id);
-            if (applicationUser == null)
+            //edit only available for logged in user's profile
+            if (id == null || id != currentUser.Id)
             {
                 return NotFound();
             }
-            return View(applicationUser);
+
+            var User = await _context.ApplicationUsers.FindAsync(id);
+            if (User == null)
+            {
+                return NotFound();
+            }
+            return View(User);
         }
 
         // POST: Profile/Edit/5
@@ -111,23 +119,33 @@ namespace WasteNotBE.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Id,FirstName,LastName,Story,PhotoURL,isAdmin")] ApplicationUser applicationUser)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,FirstName,LastName,Story,PhotoURL,isAdmin")] ApplicationUser User)
         {
-            if (id != applicationUser.Id)
+            //access user that's logged in
+            var currentUser = await GetCurrentUserAsync();
+
+            if (id != User.Id || id != currentUser.Id)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
+                //update current user with every property that I've determined to be updateable 
                 try
                 {
-                    _context.Update(applicationUser);
+                    currentUser.FirstName = User.FirstName;
+                    currentUser.LastName = User.LastName;
+                    currentUser.Story = User.Story;
+                    currentUser.PhotoURL = User.PhotoURL;
+               
+        
+                    _context.Update(currentUser);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ApplicationUserExists(applicationUser.Id))
+                    if (!ApplicationUserExists(User.Id))
                     {
                         return NotFound();
                     }
@@ -138,7 +156,8 @@ namespace WasteNotBE.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(applicationUser);
+  
+            return View(User);
         }
 
         // GET: Profile/Delete/5

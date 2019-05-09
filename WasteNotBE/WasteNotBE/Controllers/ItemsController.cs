@@ -76,8 +76,9 @@ namespace WasteNotBE.Controllers
         public async Task <IActionResult> Create()
         {
             var user = await GetCurrentUserAsync();
-            var UserWishList = _context.WishLists
-                .Where(w => w.UserId == user.Id);
+
+            var UserWishList = _context.WishLists.Where(w=>w.UserId == user.Id);
+               
  
             List<SelectListItem> WishLists = new List<SelectListItem>();
 
@@ -140,12 +141,13 @@ namespace WasteNotBE.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ItemCreateViewModel createditem)
         {
-            ModelState.Remove("Item.User");
-            ModelState.Remove("Item.UserId");
+            //ModelState.Remove("Item.User");
+            //ModelState.Remove("Item.UserId");
             var user = await GetCurrentUserAsync();
 
             if (ModelState.IsValid)
-            {           
+            {
+                createditem.Item.UserId = user.Id;
                 _context.Add(createditem.Item);
                 await _context.SaveChangesAsync();
                 // Add Item to WishListItems
