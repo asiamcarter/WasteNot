@@ -1,0 +1,83 @@
+﻿@model WasteNotBE.Models.ApplicationUserViewModels.ProfileViewModel
+
+@{
+    ViewData["Title"] = "UserProfile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<a asp-action="Edit" asp-route-id="@Model.User.Id">
+    <div>
+        <div>
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.User.FirstName)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.User.FirstName)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.User.PhotoURL)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.User.PhotoURL)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.User.Story)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.User.Story)
+                </dd>
+            </dl>
+        </div>
+</a>
+
+
+<p>
+    <a asp-controller="Items" asp-action="Create" class="btn-success">Create New Item</a>
+</p>
+@foreach (var item in Model.UserWishLists)
+{
+    <p>@Html.DisplayFor(modelItem => item.Title)</p>
+foreach (var groupeditem in Model.GroupedItems)
+{
+    if (item.Id != groupeditem.WishListId)
+
+    {
+
+        foreach (var gi in groupeditem.Items)
+        {
+            <p>@Html.DisplayFor(modelItem => gi.Title)</p>
+        }
+
+
+    }
+
+}
+}
+
+
+@*@foreach (var item in Model.UserWishLists)
+    {
+        foreach (var groupeditem in Model.GroupedItems)
+        {
+            if (item.Id = groupeditem.WishListId)
+
+            {
+                    <a asp-controller="WishLists" asp-action="Details" asp-route-id="@item.Id">
+                        <p>@Html.DisplayFor(modelItem => item.Title)</p>
+                    </a>
+
+            }
+
+        }
+    }*@
+
+
+
+
+
+
+    </div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.User.Id })
+    <a asp-action="Index">Back to List</a>
+</div>

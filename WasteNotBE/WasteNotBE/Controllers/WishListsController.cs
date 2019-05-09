@@ -27,10 +27,11 @@ namespace WasteNotBE.Controllers
 
 
         // GET: WishLists
+        //[Route("Profile")]
         public async Task<IActionResult> Index()
         {
             var user = await GetCurrentUserAsync();
-
+       
             var applicationDbContext = _context.WishLists.Include(w => w.User).Include(w => w.WishListItems).Where(w => w.UserId == user.Id);
             return View(await applicationDbContext.ToListAsync());
         }
@@ -84,11 +85,13 @@ namespace WasteNotBE.Controllers
         {
             if (ModelState.IsValid)
             {
+                var user = await GetCurrentUserAsync();
+                wishList.UserId = user.Id;
                 _context.Add(wishList);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", wishList.UserId);
+            //ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", wishList.UserId);
             return View(wishList);
         }
 

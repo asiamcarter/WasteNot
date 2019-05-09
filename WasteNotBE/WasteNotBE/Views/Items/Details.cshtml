@@ -11,9 +11,10 @@
     </div>
     <div class="item-detail-info-div">
         <div class="item-detail-user-div">
-        <img class="item-detail-user-img" src="https://lh3.googleusercontent.com/vv7UOi1e6cfRfpH3h263xh34pN-mlbER0SdlGSstHRrDsMy7UR91hWPDzYuB9SPwQxHRtg=s85" />
-        <p>@Html.DisplayFor(model => model.User.UserName)</p>
-            </div>
+            @*<img class="item-detail-user-img" src="https://lh3.googleusercontent.com/vv7UOi1e6cfRfpH3h263xh34pN-mlbER0SdlGSstHRrDsMy7UR91hWPDzYuB9SPwQxHRtg=s85" />*@
+
+            <h4>@Html.DisplayFor(model => model.User.UserName)</h4>
+        </div>
 
         <div class="item-detail-item-info-div">
             <h4>@Html.DisplayFor(model => model.Title)</h4><br />

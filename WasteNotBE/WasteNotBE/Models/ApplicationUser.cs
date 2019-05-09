@@ -10,8 +10,6 @@ namespace WasteNotBE.Models
     public class ApplicationUser: IdentityUser
     {  
 
-        
-
         [Required]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
@@ -27,5 +25,7 @@ namespace WasteNotBE.Models
         public string PhotoURL { get; set; }
 
         public bool isAdmin { get; set; }
+
+        List<WishList> UserWishLists { get; set; }
     }
 }
