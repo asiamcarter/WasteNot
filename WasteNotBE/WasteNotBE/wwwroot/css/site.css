@@ -7,6 +7,15 @@ a.navbar-brand {
   word-break: break-all;
 }
 
+body {
+    font-family: Helvetica, sans-serif
+}
+
+a {
+    color: #00A0C6;
+    text-decoration: none;
+} 
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
@@ -97,6 +106,8 @@ div.homepage-item img {
 .item-detail-div {
     display: inline-flex;
     margin-top: 30px;
+    width: 100vw;
+    height: 100vh;
 }
 
 .item-detail-img{
@@ -106,28 +117,106 @@ div.homepage-item img {
 }
 
 .item-detail-img-div {
-    width: 1200px;
-    height: 913px;
+    max-width: 50%;
+    height: auto;
     margin-right: 20px;
 }
 
 .item-detail-info-div{
     display: flex;
     flex-direction: column;
+    margin-left: 45px;
+
 }
 
 .item-detail-user-div{
     display: inline-flex;
+    align-items: flex-end;
 }
-.item-detail-user-img {
-    max-width: 50px;
+
+.item-detail-item-info-div {
+    max-width: 50%;
     height: auto;
+}
+
+hr {
+    width: 564px;
+    height: 1px;
+    background: #fff;
+    margin-left: -15px;
+}
+
+.item-user-username {
+    font-weight: 500;
+    color: #4D4545;
+}
+
+.item-detail-title {
+    font-weight: bold;
+    color: #4D4545;
+    font-size: 30px;
+    margin-bottom: -10px;
+}
+
+.item-detail-category-title {
+    font-weight: bold;
+    color: #4D4545;
+    font-size: 18px;
+}
+
+#add-wishlist-btn {
+    background-color: #A4BCA8;
+    border: 5px solid #A4BCA8;
+    border-radius: 10px;
+    color: white;
+    padding: 3px;
+}
+
+.rating-photo{
+    height: 40px;
+    width: auto;
+    margin-right: -12px;
+}
+
+.rating-photo-div{
+    margin-bottom: 14px;
+}
+/*item user image*/
+.item-detail-user-img {
+    /*display: inline;*/
+    margin: 0 auto;
+    margin-left: -25%;
+    width: auto;
+}
+
+.image-cropper {
+    width: 50px;
+    height: 50px;
+    position: relative;
+    overflow: hidden;
     border-radius: 50%;
+    margin-right: 20px;
 }
 
 /*User Profile View*/
 
+/*Uh-Oh Error Page*/
+.uhoh-error-div{
+    display: inline-flex;
+    margin-top: 50px;
+}
 
+.uhoh-text-div{
+    margin-top: 70px;
+    margin-right: 20px;
+}
+
+.uh-oh-button {
+    border: 1px solid black;
+    padding: 5px;
+    color: black;
+    margin-top: 2px;
+}
 
 
 
