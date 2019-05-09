@@ -34,6 +34,11 @@ namespace WasteNotBE.Controllers
             return View(ViewModel); 
         }
 
+        public IActionResult About()
+        {
+            return View();
+        }
+
 
         //public IActionResult Privacy()
         //{
