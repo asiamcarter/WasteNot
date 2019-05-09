@@ -154,18 +154,32 @@ hr {
 .item-detail-title {
     font-weight: bold;
     color: #4D4545;
-    font-size: 40px;
+    font-size: 30px;
+    margin-bottom: -10px;
 }
 
 .item-detail-category-title {
     font-weight: bold;
     color: #4D4545;
-    font-size: 20px;
+    font-size: 18px;
 }
 
-.add-wishlist-btn {
+#add-wishlist-btn {
     background-color: #A4BCA8;
-    border-radius: 25%;
+    border: 5px solid #A4BCA8;
+    border-radius: 13%;
+    color: white;
+    padding: 3px;
+}
+
+.rating-photo{
+    height: 40px;
+    width: auto;
+    margin-right: -12px;
+}
+
+.rating-photo-div{
+    margin-bottom: 14px;
 }
 /*item user image*/
 .item-detail-user-img {
