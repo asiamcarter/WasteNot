@@ -1,9 +1,12 @@
-﻿@model WasteNotBE.Models.ApplicationUserViewModels.ProfileViewModel
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> UserManager
+@model WasteNotBE.Models.ApplicationUserViewModels.ProfileViewModel
 
 @{
     ViewData["Title"] = "UserProfile";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <a asp-action="Edit" asp-route-id="@Model.User.Id">
     <div>
         <div>
@@ -37,39 +40,24 @@
 @foreach (var item in Model.UserWishLists)
 {
     <p>@Html.DisplayFor(modelItem => item.Title)</p>
-foreach (var groupeditem in Model.GroupedItems)
-{
-    if (item.Id != groupeditem.WishListId)
-
+    foreach (var groupeditem in Model.GroupedItems)
     {
+        if (item.Id != groupeditem.WishListId)
 
-        foreach (var gi in groupeditem.Items)
         {
-            <p>@Html.DisplayFor(modelItem => gi.Title)</p>
-        }
 
-
-    }
-
-}
-}
-
-
-@*@foreach (var item in Model.UserWishLists)
-    {
-        foreach (var groupeditem in Model.GroupedItems)
-        {
-            if (item.Id = groupeditem.WishListId)
-
+            foreach (var gi in groupeditem.Items)
             {
-                    <a asp-controller="WishLists" asp-action="Details" asp-route-id="@item.Id">
-                        <p>@Html.DisplayFor(modelItem => item.Title)</p>
-                    </a>
-
+                <p>@Html.DisplayFor(modelItem => gi.Title)</p>
             }
 
+
         }
-    }*@
+
+    }
+}
+
+
 
 
 
