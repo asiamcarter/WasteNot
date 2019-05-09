@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -237,6 +238,7 @@ namespace WasteNotBE.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,CategoryId,SourceLink,PhotoUrl,ReplacementTag,UserId,DateCreated")] Item item)
         {
+           
             if (id != item.Id)
             {
                 return NotFound();
@@ -265,10 +267,17 @@ namespace WasteNotBE.Controllers
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", item.UserId);
             return View(item);
         }
+        public IActionResult UhOh()
+        {
+            return View();
+        }
 
         // GET: Items/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
+            var user = await GetCurrentUserAsync();
+           
             if (id == null)
             {
                 return NotFound();
@@ -277,6 +286,12 @@ namespace WasteNotBE.Controllers
             var item = await _context.Items
                 .Include(i => i.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (user.Id != item.UserId)
+            {
+                return RedirectToAction(nameof(UhOh));
+            }
+
             if (item == null)
             {
                 return NotFound();

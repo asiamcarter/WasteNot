@@ -167,7 +167,7 @@ hr {
 #add-wishlist-btn {
     background-color: #A4BCA8;
     border: 5px solid #A4BCA8;
-    border-radius: 13%;
+    border-radius: 10px;
     color: white;
     padding: 3px;
 }
@@ -183,7 +183,7 @@ hr {
 }
 /*item user image*/
 .item-detail-user-img {
-    display: inline;
+    /*display: inline;*/
     margin: 0 auto;
     margin-left: -25%;
     width: auto;
@@ -200,7 +200,23 @@ hr {
 
 /*User Profile View*/
 
+/*Uh-Oh Error Page*/
+.uhoh-error-div{
+    display: inline-flex;
+    margin-top: 50px;
+}
 
+.uhoh-text-div{
+    margin-top: 70px;
+    margin-right: 20px;
+}
+
+.uh-oh-button {
+    border: 1px solid black;
+    padding: 5px;
+    color: black;
+    margin-top: 2px;
+}
 
 
 
