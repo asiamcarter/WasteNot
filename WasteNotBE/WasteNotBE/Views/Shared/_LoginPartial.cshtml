@@ -6,19 +6,30 @@
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
+        <li class="nav-item">
+            <form class="form-inline" asp-area="Home" asp-action="Index">
+                <button type="submit" class="nav-link btn btn-link text-dark" id="home-button">Home</button>
+            </form>
+        </li>
+        <li class="nav-item">
+            <form class="form-inline" asp-area="Home" asp-action="About">
+                <button type="submit" class="nav-link btn btn-link text-dark">About</button>
+            </form>
+        </li>
 
-    <li class="nav-item">
-
-        @*<a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name!</a>*@
-        <p><a asp-controller="WishLists" asp-action="Index" asp-route-id="">Hello @User.Identity.Name!</a></p>
-    </li>
+        <li class="nav-item">
+            @*<a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name!</a>*@
+            <form class="form-inline" asp-controller="Profile" asp-action="UserProfile" asp-route-id="@User.Identity.Name">
+                <button type="submit" class="nav-link btn btn-link text-dark">Profile</button>
+            </form>
+        </li>
         <li class="nav-item">
             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                 <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
             </form>
         </li>
     }
-    else 
+    else
     {
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
