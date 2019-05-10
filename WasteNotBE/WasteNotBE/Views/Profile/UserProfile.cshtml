@@ -23,12 +23,14 @@
         </div>
         <hr />
         <div class="profile-wishlist-div">
-            @if (User.Identity.Name == Model.User.UserName && SignInManager.IsSignedIn(User)) { }
+            @if (User.Identity.Name == Model.User.UserName && SignInManager.IsSignedIn(User))
+            {
             <div class="profile-wishlist-buttons-div">
                 <a asp-controller="WishLists" asp-action="Create" class="profile-button">Create New List</a>
                 <div class="vl"></div>
                 <a asp-controller="Items" asp-action="Create" class="profile-button">Create New Item</a>
             </div>
+            }
 
             <div class="profile-individual-wishlist">
                 @foreach (var item in Model.UserWishLists)
@@ -37,7 +39,7 @@
                         <div class="profile-wishlist-title">
                             <p class="profile-wishlist-header">@Html.DisplayFor(modelItem => item.Title)</p>
                         </div>
-                    </a>
+                    
                     foreach (var groupeditem in Model.GroupedItems)
                     {
                         if (item.Id == groupeditem.WishListId)
@@ -56,6 +58,7 @@
                         }
 
                     }
+                        </a>
                 }
 
             </div>
