@@ -2,12 +2,10 @@
 
 @{
     ViewData["Title"] = "Create";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "/Views/Shared/_Layout.cshtml";
 }
 
-<h1>CreateNewItem</h1>
-
-<h4>Item</h4>
+<h1>Create New Item</h1>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -24,26 +22,28 @@
                 <span asp-validation-for="Item.Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Item.SourceLink" class="control-label"></label>
+                <label asp-for="Item.SourceLink" class="control-label">Source Link</label>
                 <input asp-for="Item.SourceLink" class="form-control" />
                 <span asp-validation-for="Item.SourceLink" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Item.PhotoUrl" class="control-label"></label>
+                <label asp-for="Item.PhotoUrl" class="control-label"> Photo URL</label>
                 <input asp-for="Item.PhotoUrl" class="form-control" />
                 <span asp-validation-for="Item.PhotoUrl" class="text-danger"></span>
             </div>
+            </div>
+    <div class="col-md-4 create-item-col">
             <div class="form-group">
-                <label asp-for="Item.ReplacementTag" class="control-label"></label>
+                <label asp-for="Item.ReplacementTag" class="control-label">Replacement Tags</label>
                 <input asp-for="Item.ReplacementTag" class="form-control" />
                 <span asp-validation-for="Item.ReplacementTag" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="WishListId" class="control-label"></label>
+                <label asp-for="WishListId" class="control-label">List</label>
                 <select asp-for="WishListId" class="form-control" asp-items="@Model.UserWishLists"></select>
             </div>
             <div class="form-group">
-                <label asp-for="Item.CategoryId" class="control-label"></label>
+                <label asp-for="Item.CategoryId" class="control-label">Category</label>
                 <select asp-for="Item.CategoryId" class="form-control" asp-items="@Model.ItemCategories"></select>
             </div>
             <div class="form-group">

@@ -72,7 +72,7 @@ namespace WasteNotBE.Controllers
         // GET: WishLists/Create
         public IActionResult Create()
         {
-            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id");
+           
             return View();
         }
 
@@ -81,7 +81,7 @@ namespace WasteNotBE.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserId,Title")] WishList wishList)
+        public async Task<IActionResult> Create([Bind("Title")] WishList wishList)
         {
             if (ModelState.IsValid)
             {

@@ -1,42 +1,36 @@
-﻿@model WasteNotBE.Models.WishList
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> UserManager
+@inject SignInManager<ApplicationUser> SignInManager
+@model WasteNotBE.Models.WishList
 
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Details</h1>
-<div>
-    <h4>WishList</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.User)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.User.Id)
-        </dd>
-
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-
-        @foreach (var item in Model.WishListItems)
-
-        {
-            <p>@Html.DisplayFor(modelItem => item.Item.Title)</p>
+<h1>@Html.DisplayFor(model => model.Title)</h1>    
+@if (User.Identity.Name == Model.User.UserName)
+{
+    <p><a asp-controller="WishLists" asp-action="Delete" asp-route-id="@Model.Id" class="profile-wishlist-header">Delete WishList</a></p>
 }
+<hr />
+<table>
+    <div class="homepage-div">
+        @foreach (var item in Model.WishListItems)
+        {
+            <div class="homepage-item">
+                <a asp-controller="Items" asp-action="Details" asp-route-id="@item.Item.Id">
+                    <img src="@Html.DisplayFor(modelItem => item.Item.PhotoUrl)" />
+                </a><br />
+                @if (User.Identity.Name == Model.User.UserName)
+                {
+                    <a asp-controller="WishListItems" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                }
+            </div>
+        }
+    </div>
 
-            <p><a asp-controller="WishLists" asp-action="Delete" asp-route-id="@Model.Id" class="btn-success">DELETE</a></p>
+</table>
 
-    </dl>
-</div>
-<a asp-controller="Items" asp-action="" asp-route-id="@Model.Id" class="btn-success">Create New Item</a>
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 

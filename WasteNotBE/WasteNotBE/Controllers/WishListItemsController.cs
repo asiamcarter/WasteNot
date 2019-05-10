@@ -73,7 +73,9 @@ namespace WasteNotBE.Controllers
                 wishListItem.NewWishListItem.ItemId = id;
                 _context.Add(wishListItem.NewWishListItem);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "WishLists", new { id = wishListItem.NewWishListItem.WishListId });
+            
+                //return RedirectToAction(nameof(Index));
             }
           
             ViewData["WishListId"] = new SelectList(_context.WishLists, "Id", "", wishListItem.NewWishListItem.WishListId);
