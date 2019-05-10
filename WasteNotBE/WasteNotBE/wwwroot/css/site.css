@@ -303,6 +303,7 @@ a.profile-button{
     position: relative;
     overflow: hidden;
     border-radius: 5px;
+    display: inline-flex;
 }
 
 p.profile-wishlist-header {
