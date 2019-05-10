@@ -7,65 +7,61 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<a asp-action="Edit" asp-route-id="@Model.User.Id">
-    <div>
-        <div>
-            <dl class="row">
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.User.FirstName)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.User.FirstName)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.User.PhotoURL)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.User.PhotoURL)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.User.Story)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.User.Story)
-                </dd>
-            </dl>
+@*<a asp-action="Edit" asp-route-id="@Model.User.Id">*@
+    <div class="profile-div">
+        <div class="profile-photo-div">
+            <div class="profile-image-cropper">
+                <img class="item-profile-user-img" src=" @Html.DisplayFor(model => model.User.PhotoURL)" />
+            </div>
         </div>
-</a>
+        <div class="profile-info-div">
+            <div class="profile-user-story-div">
+                @Html.DisplayFor(model => model.User.Story)
+            </div>
+            <hr/>
+            <div class="profile-wishlist-div">
+                @*1. wishlist 2. add new 3. add item all in a row*@
+                <div class="profile-wishlist-buttons-div">
+                    <div class="add-wishlist-btn"> @Html.DisplayNameFor(model => model.WishList)</div>
+                    <a asp-controller="WishLists" asp-action="Create" class="profile-button">Add WishList</a>
+                    <a asp-controller="Items" asp-action="Create" class="profile-button">Create New Item</a>
+                </div>
+               
+                <div class="profile-individual-wishlist">
+                    @foreach (var item in Model.UserWishLists)
+                    {
+                    <div class="profile-wishlist-title">
+                        <p>@Html.DisplayFor(modelItem => item.Title)</p>
+                    </div>
+                        foreach (var groupeditem in Model.GroupedItems)
+                        {
+                            if (item.Id == groupeditem.WishListId)
+
+                            {
+                                foreach (var gi in groupeditem.Items)
+                                {
+                    <div class="profile-wishlist-image">
+                        <img class="profile-individual-wishlist-image" src="@Html.DisplayFor(modelItem => gi.PhotoUrl)" />
+                    </div>
+                                }
 
 
-<p>
-    <a asp-controller="Items" asp-action="Create" class="btn-success">Create New Item</a>
-</p>
-@foreach (var item in Model.UserWishLists)
-{
-    <p>@Html.DisplayFor(modelItem => item.Title)</p>
-    foreach (var groupeditem in Model.GroupedItems)
-    {
-        if (item.Id != groupeditem.WishListId)
+                            }
 
-        {
+                        }
+                    }
 
-            foreach (var gi in groupeditem.Items)
-            {
-                <p>@Html.DisplayFor(modelItem => gi.Title)</p>
-            }
-
-
-        }
-
-    }
-}
+                </div>
+            </div>
+       </div>               
+   </div>
 
 
 
 
 
 
-
-
-    </div>
-<div>
+@*<div>
     @Html.ActionLink("Edit", "Edit", new { id = Model.User.Id })
     <a asp-action="Index">Back to List</a>
-</div>
+</div>*@

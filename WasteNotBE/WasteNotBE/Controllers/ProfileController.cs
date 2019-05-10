@@ -36,7 +36,7 @@ namespace WasteNotBE.Controllers
         {
             var user = await GetCurrentUserAsync();
             var applicationUser = await _context.ApplicationUsers
-               .FirstOrDefaultAsync(m => m.UserName == id);
+               .FirstOrDefaultAsync(m => m.UserName == id | m.Id == id);
             var UserProfile = new ProfileViewModel();
             UserProfile.User = applicationUser;
 
@@ -74,7 +74,7 @@ namespace WasteNotBE.Controllers
             }
 
             var applicationUser = await _context.ApplicationUsers
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Id == id | m.UserName == id);
             if (applicationUser == null)
             {
                 return NotFound();

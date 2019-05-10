@@ -208,10 +208,8 @@ hr {
 }
 /*item user image*/
 .item-detail-user-img {
-    /*display: inline;*/
-    margin: 0 auto;
-    margin-left: -25%;
-    width: auto;
+    width: 100%;
+    height: auto;
 }
 
 .image-cropper {
@@ -224,9 +222,62 @@ hr {
 }
 
 /*User Profile View*/
+.profile-image-cropper {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+    margin-right: 20px;
+}
 
+.item-profile-user-img {
+    width: 100%;
+    height: auto;   
+}
+.profile-div {
+    display: inline-flex;
+    margin-top: 30px;
+    width: 100vw;
+    height: 100vh;
+}
+
+.profile-info-div{
+    display: flex;
+    flex-direction:column;
+    max-width: 50vw;
+    height: auto;
+}
+
+.profile-user-story-div {
+    max-width: 100%;
+    height: auto;
+}
+.profile-wishlist-div{
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-individual-wishlist{
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-wishlist-buttons-div{
+    display: inline-flex;
+}
+
+.profile-wishlist-image{
+    display:inline-flex;
+}
+
+.profile-individual-wishlist-image{
+    /*//make each image a square*/
+    width: 100px;
+    height: 100px;
+}
 /*Uh-Oh Error Page*/
-.uhoh-error-div{
+.uhoh-error-div {
     display: inline-flex;
     margin-top: 50px;
 }
