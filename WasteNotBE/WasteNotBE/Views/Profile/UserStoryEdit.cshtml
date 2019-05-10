@@ -6,18 +6,20 @@
 }
 <div class="profile-user-story-edit-form-div">
     <h3>Edit Your Story</h3>
-    <hr />
-    <div class="row">
-        <div class="col-md-4">
+
+    <div>
+        <div>
             <form asp-action="UserStoryEdit">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="Id" />
 
-                <div class="form-group">
+                <div class="form-group story-input-form">
                     
-                    <input asp-for="Story" class="form-control story-input" />
-                    <span asp-validation-for="Story" class="text-danger"></span>
-                </div>
+                    <span class="user-story-span" contenteditable="true">
+                        <input asp-for="Story" class="form-control story-input" />
+                        </span>
+                        <span asp-validation-for="Story" class="text-danger"></span>
+</div>
 
                 <div class="form-group">
                     <input type="submit" value="Save" class="btn btn-primary" />
