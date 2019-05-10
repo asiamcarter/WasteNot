@@ -49,13 +49,13 @@
             {
                 @if (Model.User.Story == null)
                 {
-                    <a asp-action="Edit" asp-route-id="@Model.User.Id">
+                    <a asp-action="UserStoryEdit" asp-route-id="@Model.User.Id">
                         <h4>Share your ethical consumption journey here..</h4>
                     </a>
                 }
                 else
                 {
-                    <a asp-action="Edit" asp-route-id="@Model.User.Id">
+                    <a asp-action="UserStoryEdit" asp-route-id="@Model.User.Id">
                         @Html.DisplayFor(model => model.User.Story)
                     </a>
                 }
