@@ -287,10 +287,10 @@ namespace WasteNotBE.Controllers
                 .Include(i => i.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
-            if (user.Id != item.UserId)
-            {
-                return RedirectToAction(nameof(UhOh));
-            }
+            //if (user.Id != item.UserId)
+            //{
+            //    return RedirectToAction(nameof(UhOh));
+            //}
 
             if (item == null)
             {
