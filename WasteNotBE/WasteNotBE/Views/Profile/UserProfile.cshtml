@@ -1,71 +1,77 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject UserManager<ApplicationUser> UserManager
+@inject SignInManager<ApplicationUser> SignInManager
 @model WasteNotBE.Models.ApplicationUserViewModels.ProfileViewModel
+
 
 @{
     ViewData["Title"] = "UserProfile";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<a asp-action="Edit" asp-route-id="@Model.User.Id">
-    <div>
-        <div>
-            <dl class="row">
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.User.FirstName)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.User.FirstName)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.User.PhotoURL)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.User.PhotoURL)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.User.Story)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.User.Story)
-                </dd>
-            </dl>
+@*<a asp-action="Edit" asp-route-id="@Model.User.Id">*@
+<div class="profile-div">
+    <div class="profile-photo-div">
+        <div class="profile-image-cropper">
+            <img class="item-profile-user-img" src=" @Html.DisplayFor(model => model.User.PhotoURL)" />
         </div>
-</a>
-
-
-<p>
-    <a asp-controller="Items" asp-action="Create" class="btn-success">Create New Item</a>
-</p>
-@foreach (var item in Model.UserWishLists)
-{
-    <p>@Html.DisplayFor(modelItem => item.Title)</p>
-    foreach (var groupeditem in Model.GroupedItems)
-    {
-        if (item.Id != groupeditem.WishListId)
-
-        {
-
-            foreach (var gi in groupeditem.Items)
+    </div>
+    <div class="profile-info-div">
+        <h1 class="profile-user-full-name">@Html.DisplayFor(model => model.User.FirstName) @Html.DisplayFor(model => model.User.LastName)</h1>
+        <div class="profile-user-story-div">
+            @Html.DisplayFor(model => model.User.Story)
+        </div>
+        <hr />
+        <div class="profile-wishlist-div">
+            @if (User.Identity.Name == Model.User.UserName && SignInManager.IsSignedIn(User))
             {
-                <p>@Html.DisplayFor(modelItem => gi.Title)</p>
+            <div class="profile-wishlist-buttons-div">
+                <a asp-controller="WishLists" asp-action="Create" class="profile-button">Create New List</a>
+                <div class="vl"></div>
+                <a asp-controller="Items" asp-action="Create" class="profile-button">Create New Item</a>
+            </div>
             }
 
+            <div class="profile-individual-wishlist">
+                @foreach (var item in Model.UserWishLists)
+                {
+                    <a asp-controller="WishLists" asp-action="Details" asp-route-id="@item.Id">
+                        <div class="profile-wishlist-title">
+                            <p class="profile-wishlist-header">@Html.DisplayFor(modelItem => item.Title)</p>
+                        </div>
+                    
+                    foreach (var groupeditem in Model.GroupedItems)
+                    {
+                        if (item.Id == groupeditem.WishListId)
 
-        }
+                        {
+                            foreach (var gi in groupeditem.Items)
+                            {
+                                <div class="profile-wishlist-images">
+                                    <div class="profile-wishlist-image-cropper">
+                                        <img class="profile-individual-wishlist-image" src="@Html.DisplayFor(modelItem => gi.PhotoUrl)" />
+                                    </div>
+                                </div>
+                            }
 
-    }
-}
 
+                        }
 
+                    }
+                        </a>
+                }
 
-
-
-
-
-
+            </div>
+        </div>
     </div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.User.Id })
-    <a asp-action="Index">Back to List</a>
 </div>
+
+
+
+
+
+
+@*<div>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.User.Id })
+        <a asp-action="Index">Back to List</a>
+    </div>*@

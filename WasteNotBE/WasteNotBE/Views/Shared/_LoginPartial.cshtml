@@ -7,12 +7,12 @@
     @if (SignInManager.IsSignedIn(User))
     {
         <li class="nav-item">
-            <form class="form-inline" asp-area="Home" asp-action="Index">
+            <form class="form-inline" asp-controller="Home" asp-action="Index">
                 <button type="submit" class="nav-link btn btn-link text-dark" id="home-button">Home</button>
             </form>
         </li>
         <li class="nav-item">
-            <form class="form-inline" asp-area="Home" asp-action="About">
+            <form class="form-inline" asp-controller="Home" asp-action="About">
                 <button type="submit" class="nav-link btn btn-link text-dark">About</button>
             </form>
         </li>

@@ -208,10 +208,8 @@ hr {
 }
 /*item user image*/
 .item-detail-user-img {
-    /*display: inline;*/
-    margin: 0 auto;
-    margin-left: -25%;
-    width: auto;
+    width: 100%;
+    height: auto;
 }
 
 .image-cropper {
@@ -224,9 +222,108 @@ hr {
 }
 
 /*User Profile View*/
+.profile-image-cropper {
+    width: 180px;
+    height: 180px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.profile-photo-div{
+    margin-right: 50px;
+}
+
+.item-profile-user-img {
+    width: 100%;
+    height: auto;
+}
+.profile-div {
+    display: inline-flex;
+    margin-top: 50px;
+    width: 100vw;
+    height: 100vh;
+}
+
+.profile-info-div{
+    display: flex;
+    flex-direction:column;
+    max-width: 50vw;
+    height: auto;
+    margin-right: 20px;
+}
+
+.profile-user-story-div {
+    max-width: 100%;
+    height: auto;
+}
+.profile-wishlist-div{
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-individual-wishlist{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+a.profile-button{
+    margin-right: 10px;
+    text-decoration: none;
+}
+
+.profile-wishlist-buttons-div{
+    display: inline-flex;
+    align-items: baseline;
+}
+
+.profile-wishlist-images {
+    display: inline-flex;
+    border: 1px solid #F2F2F2;
+    border-radius: 5px;
+}
+
+.profile-individual-wishlist-image{
+    /*//make each image a square*/
+    width: 160px;
+    height: 160px;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.profile-user-full-name{
+    font-weight: bold;
+}
+
+.profile-wishlist-image-cropper {
+    width: 150px;
+    height: 150px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+p.profile-wishlist-header {
+    display: inline-block;
+    margin-right: 20px;
+    background-color: #A4BCA8;
+    border: 5px solid #A4BCA8;
+    border-radius: 15px;
+    color: white;
+    padding-left: 5px;
+}
+
+.vl {
+    border-left: 1px solid gray;
+    height: 20px;
+    margin-right: 10px;
+}
+
 
 /*Uh-Oh Error Page*/
-.uhoh-error-div{
+.uhoh-error-div {
     display: inline-flex;
     margin-top: 50px;
 }
