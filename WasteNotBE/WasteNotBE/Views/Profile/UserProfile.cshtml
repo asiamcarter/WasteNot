@@ -39,7 +39,7 @@
                         <div class="profile-wishlist-title">
                             <p class="profile-wishlist-header">@Html.DisplayFor(modelItem => item.Title)</p>
                         </div>
-                    
+                    </a>
                     foreach (var groupeditem in Model.GroupedItems)
                     {
                         if (item.Id == groupeditem.WishListId)
@@ -58,7 +58,6 @@
                         }
 
                     }
-                        </a>
                 }
 
             </div>
