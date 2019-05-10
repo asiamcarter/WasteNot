@@ -96,8 +96,10 @@ namespace WasteNotBE.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Story,PhotoURL,isAdmin")] ApplicationUser applicationUser)
         {
+        
             if (ModelState.IsValid)
             {
+                
                 _context.Add(applicationUser);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

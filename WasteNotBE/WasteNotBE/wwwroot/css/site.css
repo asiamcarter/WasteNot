@@ -314,6 +314,7 @@ p.profile-wishlist-header {
     border-radius: 15px;
     color: white;
     padding-left: 5px;
+    margin-top:10px;
 }
 
 .vl {
@@ -358,6 +359,10 @@ p.profile-wishlist-header {
     width: 500px;
 }
 
+/*Create Item*/
+.create-item-col{
+    margin-left: 50px;
+}
 
 
 
