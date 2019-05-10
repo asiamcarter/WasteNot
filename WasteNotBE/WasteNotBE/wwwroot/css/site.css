@@ -303,6 +303,7 @@ a.profile-button{
     position: relative;
     overflow: hidden;
     border-radius: 5px;
+    display: inline-flex;
 }
 
 p.profile-wishlist-header {
@@ -321,7 +322,6 @@ p.profile-wishlist-header {
     margin-right: 10px;
 }
 
-
 /*Uh-Oh Error Page*/
 .uhoh-error-div {
     display: inline-flex;
@@ -339,6 +339,25 @@ p.profile-wishlist-header {
     color: black;
     margin-top: 2px;
 }
+
+/*Edit User Story*/
+.profile-user-story-edit-form-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.story-input{
+    margin-top: 10px;
+    width: 500px;
+    height: 100px;
+}
+
+.photo-input {
+    width: 500px;
+}
+
 
 
 
