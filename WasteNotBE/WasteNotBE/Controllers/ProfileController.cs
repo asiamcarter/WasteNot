@@ -34,6 +34,10 @@ namespace WasteNotBE.Controllers
         // GET: Profile
         public async Task<IActionResult> UserProfile([FromRoute]string id)
         {
+            if(id == null)
+            {
+                return RedirectToAction(nameof(CantFind));
+            }
             var user = await GetCurrentUserAsync();
             var applicationUser = await _context.ApplicationUsers
                .FirstOrDefaultAsync(m => m.UserName == id | m.Id == id);
@@ -181,7 +185,7 @@ namespace WasteNotBE.Controllers
         {
             if (id == null)
             {
-                return CantFind();
+                return RedirectToAction(nameof(CantFind));
             }
             //access user that's logged in
             var currentUser = await GetCurrentUserAsync();
@@ -200,7 +204,7 @@ namespace WasteNotBE.Controllers
             var User = await _context.ApplicationUsers.FindAsync(id);
             if (User == null)
             {
-                return CantFind();
+                return RedirectToAction(nameof(CantFind));
             }
             return View(User);
         }
@@ -217,7 +221,7 @@ namespace WasteNotBE.Controllers
 
             if (id != User.Id || id != currentUser.Id)
             {
-                return CantFind();
+                return RedirectToAction(nameof(CantFind));
             }
 
             if (ModelState.IsValid)
@@ -234,7 +238,7 @@ namespace WasteNotBE.Controllers
                 {
                     if (!ApplicationUserExists(User.Id))
                     {
-                        return CantFind();
+                        return RedirectToAction(nameof(CantFind));
                     }
                     else
                     {
@@ -250,9 +254,10 @@ namespace WasteNotBE.Controllers
         // GET: Profile/Edit/5
         public async Task<IActionResult> UserStoryEdit(string id)
         {
+          
             if (id == null)
             {
-                return CantFind();
+                return RedirectToAction(nameof(CantFind));
             }
             //access user that's logged in
             var currentUser = await GetCurrentUserAsync();
@@ -271,7 +276,7 @@ namespace WasteNotBE.Controllers
             var User = await _context.ApplicationUsers.FindAsync(id);
             if (User == null)
             {
-                return CantFind();
+                return RedirectToAction(nameof(CantFind));
             }
             return View(User);
         }
@@ -288,7 +293,7 @@ namespace WasteNotBE.Controllers
 
             if (id != User.Id || id != currentUser.Id)
             {
-                return CantFind();
+                return RedirectToAction(nameof(CantFind));
             }
 
             if (ModelState.IsValid)
@@ -305,7 +310,7 @@ namespace WasteNotBE.Controllers
                 {
                     if (!ApplicationUserExists(User.Id))
                     {
-                        return CantFind();
+                        return RedirectToAction(nameof(CantFind));
                     }
                     else
                     {

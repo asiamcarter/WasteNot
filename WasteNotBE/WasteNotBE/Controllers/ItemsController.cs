@@ -58,7 +58,7 @@ namespace WasteNotBE.Controllers
         {
             if (id == null)
             {
-                return CantFind();
+                return RedirectToAction(nameof(CantFind));
             }
 
             var item = await _context.Items
@@ -66,7 +66,7 @@ namespace WasteNotBE.Controllers
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (item == null)
             {
-                return CantFind();
+                return RedirectToAction(nameof(CantFind));
             }
 
             return View(item);
@@ -228,7 +228,7 @@ namespace WasteNotBE.Controllers
             }
             if (id == null)
             {
-                return CantFind();
+                return RedirectToAction(nameof(CantFind));
             }
             var item = await _context.Items.FindAsync(id);
 
@@ -239,7 +239,7 @@ namespace WasteNotBE.Controllers
 
             if (item == null)
             {
-                return CantFind();
+                return RedirectToAction(nameof(CantFind));
             }
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", item.UserId);
             return View(item);
@@ -255,7 +255,7 @@ namespace WasteNotBE.Controllers
            
             if (id != item.Id)
             {
-                return CantFind();
+                return RedirectToAction(nameof(CantFind));
             }
 
             if (ModelState.IsValid)
@@ -304,7 +304,7 @@ namespace WasteNotBE.Controllers
            
             if (id == null)
             {
-                return CantFind();
+                return RedirectToAction(nameof(CantFind));
             }
 
             var item = await _context.Items
@@ -318,7 +318,7 @@ namespace WasteNotBE.Controllers
 
             if (item == null)
             {
-                return CantFind();
+                return RedirectToAction(nameof(CantFind));
             }
 
             return View(item);
