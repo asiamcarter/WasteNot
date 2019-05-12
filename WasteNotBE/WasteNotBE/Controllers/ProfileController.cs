@@ -26,10 +26,10 @@ namespace WasteNotBE.Controllers
 
         private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
 
-        public async Task<IActionResult> Index()
-        {
-            return View();
-        }
+        //public async Task<IActionResult> Index()
+        //{
+        //    return View();
+        //}
 
         // GET: Profile
         public async Task<IActionResult> UserProfile([FromRoute]string id)
@@ -66,116 +66,116 @@ namespace WasteNotBE.Controllers
         }
 
         // GET: Profile/Details/5
-        public async Task<IActionResult> Details(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //public async Task<IActionResult> Details(string id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var applicationUser = await _context.ApplicationUsers
-                .FirstOrDefaultAsync(m => m.Id == id | m.UserName == id);
-            if (applicationUser == null)
-            {
-                return NotFound();
-            }
+        //    var applicationUser = await _context.ApplicationUsers
+        //        .FirstOrDefaultAsync(m => m.Id == id | m.UserName == id);
+        //    if (applicationUser == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return View(applicationUser);
-        }
+        //    return View(applicationUser);
+        //}
 
-        // GET: Profile/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
+        //// GET: Profile/Create
+        //public IActionResult Create()
+        //{
+        //    return View();
+        //}
 
-        // POST: Profile/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Story,PhotoURL,isAdmin")] ApplicationUser applicationUser)
-        {
+        //// POST: Profile/Create
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Story,PhotoURL,isAdmin")] ApplicationUser applicationUser)
+        //{
         
-            if (ModelState.IsValid)
-            {
+        //    if (ModelState.IsValid)
+        //    {
                 
-                _context.Add(applicationUser);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(applicationUser);
-        }
+        //        _context.Add(applicationUser);
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    return View(applicationUser);
+        //}
 
         // GET: Profile/Edit/5
-        public async Task<IActionResult> Edit(string id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            //access user that's logged in
-            var currentUser = await GetCurrentUserAsync();
+        //public async Task<IActionResult> Edit(string id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    //access user that's logged in
+        //    var currentUser = await GetCurrentUserAsync();
 
-            //edit only available for logged in user's profile
-            if (id == null || id != currentUser.Id)
-            {
-                return NotFound();
-            }
+        //    //edit only available for logged in user's profile
+        //    if (id == null || id != currentUser.Id)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var User = await _context.ApplicationUsers.FindAsync(id);
-            if (User == null)
-            {
-                return NotFound();
-            }
-            return View(User);
-        }
+        //    var User = await _context.ApplicationUsers.FindAsync(id);
+        //    if (User == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return View(User);
+        //}
 
         // POST: Profile/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Id,FirstName,LastName,Story,PhotoURL,isAdmin")] ApplicationUser User)
-        {
-            //access user that's logged in
-            var currentUser = await GetCurrentUserAsync();
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Edit(string id, [Bind("Id,FirstName,LastName,Story,PhotoURL,isAdmin")] ApplicationUser User)
+        //{
+        //    //access user that's logged in
+        //    var currentUser = await GetCurrentUserAsync();
 
-            if (id != User.Id || id != currentUser.Id)
-            {
-                return NotFound();
-            }
+        //    if (id != User.Id || id != currentUser.Id)
+        //    {
+        //        return NotFound();
+        //    }
 
-            if (ModelState.IsValid)
-            {
-                //update current user with every property that I've determined to be updateable 
-                try
-                {
-                    currentUser.FirstName = User.FirstName;
-                    currentUser.LastName = User.LastName;
-                    currentUser.Story = User.Story;
-                    currentUser.PhotoURL = User.PhotoURL;
+        //    if (ModelState.IsValid)
+        //    {
+        //        //update current user with every property that I've determined to be updateable 
+        //        try
+        //        {
+        //            currentUser.FirstName = User.FirstName;
+        //            currentUser.LastName = User.LastName;
+        //            currentUser.Story = User.Story;
+        //            currentUser.PhotoURL = User.PhotoURL;
                
         
-                    _context.Update(currentUser);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ApplicationUserExists(User.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
+        //            _context.Update(currentUser);
+        //            await _context.SaveChangesAsync();
+        //        }
+        //        catch (DbUpdateConcurrencyException)
+        //        {
+        //            if (!ApplicationUserExists(User.Id))
+        //            {
+        //                return NotFound();
+        //            }
+        //            else
+        //            {
+        //                throw;
+        //            }
+        //        }
+        //        return RedirectToAction("Home", "Index");
+        //    }
   
-            return View(User);
-        }
+        //    return View(User);
+        //}
         // GET: Profile/Edit/5
         public async Task<IActionResult> UserPhotoEdit(string id)
         {
@@ -185,6 +185,11 @@ namespace WasteNotBE.Controllers
             }
             //access user that's logged in
             var currentUser = await GetCurrentUserAsync();
+            if (currentUser == null)
+            {
+                return RedirectToAction(nameof(PleaseLogin));
+            }
+
 
             //edit only available for logged in user's profile
             if ((id == null || id != currentUser.Id))
@@ -252,6 +257,11 @@ namespace WasteNotBE.Controllers
             //access user that's logged in
             var currentUser = await GetCurrentUserAsync();
 
+            if(currentUser == null)
+            {
+                return RedirectToAction(nameof(PleaseLogin));
+            }
+
             //edit only available for logged in user's profile
             if ((id == null || id != currentUser.Id))
             {
@@ -314,6 +324,15 @@ namespace WasteNotBE.Controllers
             return View();
         }
 
+        public IActionResult PleaseLogin()
+        {
+            return View();
+        }
+
+        public IActionResult CantFind()
+        {
+            return View();
+        }
         private bool ApplicationUserExists(string id)
         {
             return _context.ApplicationUsers.Any(e => e.Id == id);

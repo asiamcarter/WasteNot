@@ -57,6 +57,10 @@ namespace WasteNotBE.Controllers
         public async Task<IActionResult> Create()
         {
             var user = await GetCurrentUserAsync();
+            if (user == null)
+            {
+                return RedirectToAction(nameof(PleaseLogin));
+            }
             ViewData["WishListId"] = new SelectList(_context.WishLists.Where(w=> w.UserId == user.Id), "Id", "Title");
             return View();
         }
@@ -171,6 +175,11 @@ namespace WasteNotBE.Controllers
         private bool WishListItemExists(int id)
         {
             return _context.WishListItems.Any(e => e.Id == id);
+        }
+
+        public IActionResult PleaseLogin()
+        {
+            return View();
         }
     }
 }
