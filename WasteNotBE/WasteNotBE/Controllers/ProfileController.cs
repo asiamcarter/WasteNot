@@ -70,14 +70,14 @@ namespace WasteNotBE.Controllers
         //{
         //    if (id == null)
         //    {
-        //        return NotFound();
+        //        return CantFind();
         //    }
 
         //    var applicationUser = await _context.ApplicationUsers
         //        .FirstOrDefaultAsync(m => m.Id == id | m.UserName == id);
         //    if (applicationUser == null)
         //    {
-        //        return NotFound();
+        //        return CantFind();
         //    }
 
         //    return View(applicationUser);
@@ -112,7 +112,7 @@ namespace WasteNotBE.Controllers
         //{
         //    if (id == null)
         //    {
-        //        return NotFound();
+        //        return CantFind();
         //    }
         //    //access user that's logged in
         //    var currentUser = await GetCurrentUserAsync();
@@ -120,13 +120,13 @@ namespace WasteNotBE.Controllers
         //    //edit only available for logged in user's profile
         //    if (id == null || id != currentUser.Id)
         //    {
-        //        return NotFound();
+        //        return CantFind();
         //    }
 
         //    var User = await _context.ApplicationUsers.FindAsync(id);
         //    if (User == null)
         //    {
-        //        return NotFound();
+        //        return CantFind();
         //    }
         //    return View(User);
         //}
@@ -143,7 +143,7 @@ namespace WasteNotBE.Controllers
 
         //    if (id != User.Id || id != currentUser.Id)
         //    {
-        //        return NotFound();
+        //        return CantFind();
         //    }
 
         //    if (ModelState.IsValid)
@@ -164,7 +164,7 @@ namespace WasteNotBE.Controllers
         //        {
         //            if (!ApplicationUserExists(User.Id))
         //            {
-        //                return NotFound();
+        //                return CantFind();
         //            }
         //            else
         //            {
@@ -181,7 +181,7 @@ namespace WasteNotBE.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return CantFind();
             }
             //access user that's logged in
             var currentUser = await GetCurrentUserAsync();
@@ -200,7 +200,7 @@ namespace WasteNotBE.Controllers
             var User = await _context.ApplicationUsers.FindAsync(id);
             if (User == null)
             {
-                return NotFound();
+                return CantFind();
             }
             return View(User);
         }
@@ -217,7 +217,7 @@ namespace WasteNotBE.Controllers
 
             if (id != User.Id || id != currentUser.Id)
             {
-                return NotFound();
+                return CantFind();
             }
 
             if (ModelState.IsValid)
@@ -234,7 +234,7 @@ namespace WasteNotBE.Controllers
                 {
                     if (!ApplicationUserExists(User.Id))
                     {
-                        return NotFound();
+                        return CantFind();
                     }
                     else
                     {
@@ -252,7 +252,7 @@ namespace WasteNotBE.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return CantFind();
             }
             //access user that's logged in
             var currentUser = await GetCurrentUserAsync();
@@ -271,7 +271,7 @@ namespace WasteNotBE.Controllers
             var User = await _context.ApplicationUsers.FindAsync(id);
             if (User == null)
             {
-                return NotFound();
+                return CantFind();
             }
             return View(User);
         }
@@ -288,7 +288,7 @@ namespace WasteNotBE.Controllers
 
             if (id != User.Id || id != currentUser.Id)
             {
-                return NotFound();
+                return CantFind();
             }
 
             if (ModelState.IsValid)
@@ -305,7 +305,7 @@ namespace WasteNotBE.Controllers
                 {
                     if (!ApplicationUserExists(User.Id))
                     {
-                        return NotFound();
+                        return CantFind();
                     }
                     else
                     {

@@ -58,7 +58,7 @@ namespace WasteNotBE.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return CantFind();
             }
 
             var item = await _context.Items
@@ -66,7 +66,7 @@ namespace WasteNotBE.Controllers
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (item == null)
             {
-                return NotFound();
+                return CantFind();
             }
 
             return View(item);
@@ -228,7 +228,7 @@ namespace WasteNotBE.Controllers
             }
             if (id == null)
             {
-                return NotFound();
+                return CantFind();
             }
             var item = await _context.Items.FindAsync(id);
 
@@ -239,7 +239,7 @@ namespace WasteNotBE.Controllers
 
             if (item == null)
             {
-                return NotFound();
+                return CantFind();
             }
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", item.UserId);
             return View(item);
@@ -255,7 +255,7 @@ namespace WasteNotBE.Controllers
            
             if (id != item.Id)
             {
-                return NotFound();
+                return CantFind();
             }
 
             if (ModelState.IsValid)
@@ -269,7 +269,7 @@ namespace WasteNotBE.Controllers
                 {
                     if (!ItemExists(item.Id))
                     {
-                        return NotFound();
+                        return CantFind();
                     }
                     else
                     {
@@ -296,9 +296,6 @@ namespace WasteNotBE.Controllers
             return View();
         }
 
-
-
-
         // GET: Items/Delete/5
         [Authorize]
         public async Task<IActionResult> Delete(int? id)
@@ -307,7 +304,7 @@ namespace WasteNotBE.Controllers
            
             if (id == null)
             {
-                return NotFound();
+                return CantFind();
             }
 
             var item = await _context.Items
@@ -321,7 +318,7 @@ namespace WasteNotBE.Controllers
 
             if (item == null)
             {
-                return NotFound();
+                return CantFind();
             }
 
             return View(item);
