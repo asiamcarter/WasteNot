@@ -185,7 +185,8 @@ namespace WasteNotBE.Controllers
             var wishListItem = await _context.WishListItems.FindAsync(id);
             _context.WishListItems.Remove(wishListItem);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Home", "Index");
+            return RedirectToAction("Details", "WishLists", new { id = wishListItem.WishListId });
+            //return RedirectToAction("Index", "Home");
         }
 
         private bool WishListItemExists(int id)
