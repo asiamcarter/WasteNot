@@ -28,13 +28,13 @@ namespace WasteNotBE.Controllers
 
         // GET: WishLists
         //[Route("Profile")]
-        public async Task<IActionResult> Index()
-        {
-            var user = await GetCurrentUserAsync();
+        //public async Task<IActionResult> Index()
+        //{
+        //    var user = await GetCurrentUserAsync();
        
-            var applicationDbContext = _context.WishLists.Include(w => w.User).Include(w => w.WishListItems).Where(w => w.UserId == user.Id);
-            return View(await applicationDbContext.ToListAsync());
-        }
+        //    var applicationDbContext = _context.WishLists.Include(w => w.User).Include(w => w.WishListItems).Where(w => w.UserId == user.Id);
+        //    return View(await applicationDbContext.ToListAsync());
+        //}
 
         // GET: WishLists/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -44,7 +44,7 @@ namespace WasteNotBE.Controllers
             if (id == null)
 
             {
-                return NotFound();
+                return RedirectToAction(nameof(CantFind));
             }
 
             var wishList = await _context.WishLists
@@ -52,27 +52,35 @@ namespace WasteNotBE.Controllers
                 .Include(w => w.WishListItems)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
+            if (wishList == null)
+            {
+                return RedirectToAction(nameof(CantFind));
+            }
+
             var Items = await _context.WishListItems
                 .Include(w => w.Item)
                 .Where(w => w.ItemId == w.Item.Id && w.WishListId == wishList.Id)
                 .ToListAsync();
-
+            
             wishList.WishListItems = Items;
+            
 
-            if (wishList == null)
-            {
-                return NotFound();
-            }
 
+          
             return View(wishList);
         }
 
 
 
         // GET: WishLists/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-           
+            var user = await GetCurrentUserAsync();
+            if (user == null)
+            {
+                return RedirectToAction(nameof(PleaseLogin));
+            }
+
             return View();
         }
 
@@ -89,79 +97,91 @@ namespace WasteNotBE.Controllers
                 wishList.UserId = user.Id;
                 _context.Add(wishList);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "WishLists", new { id = wishList.Id });
             }
             //ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", wishList.UserId);
             return View(wishList);
         }
 
         // GET: WishLists/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //public async Task<IActionResult> Edit(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var wishList = await _context.WishLists.FindAsync(id);
-            if (wishList == null)
-            {
-                return NotFound();
-            }
-            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", wishList.UserId);
-            return View(wishList);
-        }
+        //    var wishList = await _context.WishLists.FindAsync(id);
+        //    if (wishList == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", wishList.UserId);
+        //    return View(wishList);
+        //}
 
         // POST: WishLists/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,UserId,Title")] WishList wishList)
-        {
-            if (id != wishList.Id)
-            {
-                return NotFound();
-            }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Edit(int id, [Bind("Id,UserId,Title")] WishList wishList)
+        //{
+        //    if (id != wishList.Id)
+        //    {
+        //        return NotFound();
+        //    }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(wishList);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!WishListExists(wishList.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", wishList.UserId);
-            return View(wishList);
-        }
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            _context.Update(wishList);
+        //            await _context.SaveChangesAsync();
+        //        }
+        //        catch (DbUpdateConcurrencyException)
+        //        {
+        //            if (!WishListExists(wishList.Id))
+        //            {
+        //                return NotFound();
+        //            }
+        //            else
+        //            {
+        //                throw;
+        //            }
+        //        }
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", wishList.UserId);
+        //    return View(wishList);
+        //}
 
         // GET: WishLists/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            var user = await GetCurrentUserAsync();
+         
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(CantFind));
             }
 
             var wishList = await _context.WishLists
                 .Include(w => w.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (user == null)
+            {
+                return RedirectToAction(nameof(PleaseLogin));
+            }
+            if (user.Id != wishList.User.Id)
+            {
+                return RedirectToAction(nameof(UhOh));
+            }
+
             if (wishList == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(CantFind));
             }
 
             return View(wishList);
@@ -172,15 +192,32 @@ namespace WasteNotBE.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            var user = await GetCurrentUserAsync();
             var wishList = await _context.WishLists.FindAsync(id);
             _context.WishLists.Remove(wishList);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("UserProfile", "Profile", new { id = user.Id });
         }
+ 
 
         private bool WishListExists(int id)
         {
             return _context.WishLists.Any(e => e.Id == id);
+        }
+
+        public IActionResult PleaseLogin()
+        {
+            return View();
+        }
+
+        public IActionResult UhOh()
+        {
+            return View();
+        }
+
+        public IActionResult CantFind()
+        {
+            return View();
         }
     }
 }

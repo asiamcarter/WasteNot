@@ -58,7 +58,7 @@ namespace WasteNotBE.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(CantFind));
             }
 
             var item = await _context.Items
@@ -66,7 +66,7 @@ namespace WasteNotBE.Controllers
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (item == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(CantFind));
             }
 
             return View(item);
@@ -77,7 +77,11 @@ namespace WasteNotBE.Controllers
         public async Task <IActionResult> Create()
         {
             var user = await GetCurrentUserAsync();
-
+ 
+            if (user == null)
+            {
+                return RedirectToAction(nameof(PleaseLogin));
+            }
             var UserWishList = _context.WishLists.Where(w=>w.UserId == user.Id);
                
  
@@ -217,15 +221,25 @@ namespace WasteNotBE.Controllers
         // GET: Items/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            var user = await GetCurrentUserAsync();
+            if(user == null)
+            {
+                return RedirectToAction(nameof(PleaseLogin));
+            }
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(CantFind));
+            }
+            var item = await _context.Items.FindAsync(id);
+
+            if(user.Id != item.UserId)
+            {
+                return RedirectToAction(nameof(UhOh));
             }
 
-            var item = await _context.Items.FindAsync(id);
             if (item == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(CantFind));
             }
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", item.UserId);
             return View(item);
@@ -241,7 +255,7 @@ namespace WasteNotBE.Controllers
            
             if (id != item.Id)
             {
-                return NotFound();
+                return RedirectToAction(nameof(CantFind));
             }
 
             if (ModelState.IsValid)
@@ -255,7 +269,7 @@ namespace WasteNotBE.Controllers
                 {
                     if (!ItemExists(item.Id))
                     {
-                        return NotFound();
+                        return CantFind();
                     }
                     else
                     {
@@ -272,6 +286,16 @@ namespace WasteNotBE.Controllers
             return View();
         }
 
+        public IActionResult PleaseLogin()
+        {
+            return View();
+        }
+
+        public IActionResult CantFind()
+        {
+            return View();
+        }
+
         // GET: Items/Delete/5
         [Authorize]
         public async Task<IActionResult> Delete(int? id)
@@ -280,21 +304,21 @@ namespace WasteNotBE.Controllers
            
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(CantFind));
             }
 
             var item = await _context.Items
                 .Include(i => i.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
-            //if (user.Id != item.UserId)
-            //{
-            //    return RedirectToAction(nameof(UhOh));
-            //}
+            if (user.Id != item.UserId)
+            {
+                return RedirectToAction(nameof(UhOh));
+            }
 
             if (item == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(CantFind));
             }
 
             return View(item);
@@ -305,6 +329,7 @@ namespace WasteNotBE.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+
             var item = await _context.Items.FindAsync(id);
             _context.Items.Remove(item);
             await _context.SaveChangesAsync();
@@ -315,5 +340,7 @@ namespace WasteNotBE.Controllers
         {
             return _context.Items.Any(e => e.Id == id);
         }
+
+
     }
 }
