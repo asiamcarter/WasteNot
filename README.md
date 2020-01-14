@@ -1,4 +1,4 @@
-![Homepage view of WasteNot Web App](WasteNotHome.png)
+![Homepage view of WasteNot Web App](WasteNotHome.PNG)
 
 # Waste Not
 </hr>
