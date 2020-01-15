@@ -1,4 +1,6 @@
 ![Homepage view of WasteNot Web App](WasteNotHome.PNG)
+![Profile view of WasteNot Web App](WasteNotProfile.PNG)
+![Product view of WasteNot Web App](WasteNotProduct.PNG)
 
 # Waste Not
 </hr>
