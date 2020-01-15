@@ -4,7 +4,7 @@
 
 # Waste Not
 </hr>
-Waste Note is a social media web application aimed to make living sustainably a little easier. Users can search for sustainable alternatives to products, save and share products via lists and browse the lists and profiles of other users. 
+Waste Not is a social media web application aimed to make living sustainably a little easier. Users can search for sustainable alternatives to products, save and share products via lists and browse the lists and profiles of other users. 
 
 ## Testing Locally
 
